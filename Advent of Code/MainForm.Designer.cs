@@ -37,6 +37,7 @@
             this.GoButton = new System.Windows.Forms.Button();
             this.YearLabel = new System.Windows.Forms.Label();
             this.YearSelection = new System.Windows.Forms.NumericUpDown();
+            this.UseTestInput = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DaySelection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.YearSelection)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +74,7 @@
             this.InputTextBox.Name = "InputTextBox";
             this.InputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.InputTextBox.Size = new System.Drawing.Size(776, 199);
-            this.InputTextBox.TabIndex = 8;
+            this.InputTextBox.TabIndex = 9;
             // 
             // InputLabel
             // 
@@ -81,7 +82,7 @@
             this.InputLabel.Location = new System.Drawing.Point(12, 50);
             this.InputLabel.Name = "InputLabel";
             this.InputLabel.Size = new System.Drawing.Size(43, 20);
-            this.InputLabel.TabIndex = 7;
+            this.InputLabel.TabIndex = 8;
             this.InputLabel.Text = "&Input";
             // 
             // OutputTextBox
@@ -147,11 +148,23 @@
             0,
             0});
             // 
+            // UseTestInput
+            // 
+            this.UseTestInput.AutoSize = true;
+            this.UseTestInput.Location = new System.Drawing.Point(255, 14);
+            this.UseTestInput.Name = "UseTestInput";
+            this.UseTestInput.Size = new System.Drawing.Size(123, 24);
+            this.UseTestInput.TabIndex = 7;
+            this.UseTestInput.Text = "Use &Test Input";
+            this.UseTestInput.UseVisualStyleBackColor = true;
+            this.UseTestInput.CheckedChanged += new System.EventHandler(this.UseTestInput_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 533);
+            this.Controls.Add(this.UseTestInput);
             this.Controls.Add(this.YearLabel);
             this.Controls.Add(this.YearSelection);
             this.Controls.Add(this.GoButton);
@@ -182,5 +195,6 @@
         private Button GoButton;
         private Label YearLabel;
         private NumericUpDown YearSelection;
+        private CheckBox UseTestInput;
     }
 }

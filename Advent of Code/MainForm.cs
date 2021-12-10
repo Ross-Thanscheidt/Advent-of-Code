@@ -22,13 +22,18 @@ namespace Advent_of_Code
 
         private string Input_Filename(decimal Year, decimal Day)
         {
-            return Input_Year_Folder(Year) + String.Format(INPUT_FILE_FORMAT, DaySelection.Value);
+            return Input_Year_Folder(Year) + String.Format(INPUT_FILE_FORMAT.Replace("Input", UseTestInput.Checked ? "Input.Test" : "Input"), DaySelection.Value);
+        }
+
+        private void UpdateInputTextBoxText()
+        {
+            var inputFilename = Input_Filename(YearSelection.Value, DaySelection.Value);
+            InputTextBox.Text = File.Exists(inputFilename) ? File.ReadAllText(inputFilename) : "";
         }
 
         private void DaySelection_ValueChanged(object sender, EventArgs e)
         {
-            var inputFilename = Input_Filename(YearSelection.Value, DaySelection.Value);
-            InputTextBox.Text = File.Exists(inputFilename) ? File.ReadAllText(inputFilename) : "";
+            UpdateInputTextBoxText();
             OutputTextBox.Text = "";
         }
 
@@ -167,5 +172,9 @@ namespace Advent_of_Code
             }
         }
 
+        private void UseTestInput_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateInputTextBoxText();
+        }
     }
 }
