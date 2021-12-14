@@ -89,6 +89,7 @@
             // 
             this.OutputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.OutputTextBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.OutputTextBox.Location = new System.Drawing.Point(12, 322);
             this.OutputTextBox.Multiline = true;
             this.OutputTextBox.Name = "OutputTextBox";
@@ -151,6 +152,8 @@
             // UseTestInput
             // 
             this.UseTestInput.AutoSize = true;
+            this.UseTestInput.Checked = true;
+            this.UseTestInput.CheckState = System.Windows.Forms.CheckState.Checked;
             this.UseTestInput.Location = new System.Drawing.Point(255, 14);
             this.UseTestInput.Name = "UseTestInput";
             this.UseTestInput.Size = new System.Drawing.Size(123, 24);
