@@ -6,7 +6,7 @@
         {
             var startTimestamp = DateTime.Now;
 
-            Int64[] fishTimerCounts = new Int64[9];
+            long[] fishTimerCounts = new long[9];
 
             // Load initial fish timers
             var fishTimers = input.ReadLine().Split(',').Select(n => int.Parse(n)).ToList();
@@ -16,9 +16,9 @@
             }
 
             // Initialize fish counts
-            Int64 fishCountInitial = fishTimerCounts.Sum();
-            Int64 fishCount80Days = 0;
-            Int64 fishCount256Days = 0;
+            long fishCountInitial = fishTimerCounts.Sum();
+            long fishCount80Days = 0;
+            long fishCount256Days = 0;
 
             // Loop through each day
             for (var day = 0; day < 256; day++)
