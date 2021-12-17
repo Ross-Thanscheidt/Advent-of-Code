@@ -80,12 +80,11 @@ namespace Advent_of_Code
                     {
                         var numberOfSubpackets = Convert.ToInt32(binaryString.GetCharacters(11), 2);
                         bitsParsed += 11;
-                        while (numberOfSubpackets > 0)
+                        foreach (var subPacketNumber in Enumerable.Range(1, numberOfSubpackets))
                         {
                             Packet subPacket = ParsePackets(binaryString, out bitsForSubpacket);
                             bitsParsed += bitsForSubpacket;
                             newPacket.SubPackets.Add(subPacket);
-                            numberOfSubpackets--;
                         }
                     }
                 }
