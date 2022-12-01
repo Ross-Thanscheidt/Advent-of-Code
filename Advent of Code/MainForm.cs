@@ -57,119 +57,42 @@ namespace Advent_of_Code
 
         private void GoButton_Click(object sender, EventArgs e)
         {
-            IYear? year = null;
-            switch (YearSelection.Value)
+            IYear? year = YearSelection.Value switch
             {
-                case 2021:
-                    year = new Year_2021();
-                    break;
-            }
+                2021 => new Year_2021(),
+                2022 => new Year_2022(),
+                _ => null
+            };
 
             using (var input = new StringReader(InputTextBox.Text))
-            {
-                switch (DaySelection.Value)
+                OutputTextBox.Text = DaySelection.Value switch
                 {
-                    case 1:
-                        OutputTextBox.Text = year?.Day_01(input);
-                        break;
-
-                    case 2:
-                        OutputTextBox.Text = year?.Day_02(input);
-                        break;
-
-                    case 3:
-                        OutputTextBox.Text = year?.Day_03(input);
-                        break;
-
-                    case 4:
-                        OutputTextBox.Text = year?.Day_04(input);
-                        break;
-
-                    case 5:
-                        OutputTextBox.Text = year?.Day_05(input);
-                        break;
-
-                    case 6:
-                        OutputTextBox.Text = year?.Day_06(input);
-                        break;
-
-                    case 7:
-                        OutputTextBox.Text = year?.Day_07(input);
-                        break;
-
-                    case 8:
-                        OutputTextBox.Text = year?.Day_08(input);
-                        break;
-
-                    case 9:
-                        OutputTextBox.Text = year?.Day_09(input);
-                        break;
-
-                    case 10:
-                        OutputTextBox.Text = year?.Day_10(input);
-                        break;
-
-                    case 11:
-                        OutputTextBox.Text = year?.Day_11(input);
-                        break;
-
-                    case 12:
-                        OutputTextBox.Text = year?.Day_12(input);
-                        break;
-
-                    case 13:
-                        OutputTextBox.Text = year?.Day_13(input);
-                        break;
-
-                    case 14:
-                        OutputTextBox.Text = year?.Day_14(input);
-                        break;
-
-                    case 15:
-                        OutputTextBox.Text = year?.Day_15(input);
-                        break;
-
-                    case 16:
-                        OutputTextBox.Text = year?.Day_16(input);
-                        break;
-
-                    case 17:
-                        OutputTextBox.Text = year?.Day_17(input);
-                        break;
-
-                    case 18:
-                        OutputTextBox.Text = year?.Day_18(input);
-                        break;
-
-                    case 19:
-                        OutputTextBox.Text = year?.Day_19(input);
-                        break;
-
-                    case 20:
-                        OutputTextBox.Text = year?.Day_20(input);
-                        break;
-
-                    case 21:
-                        OutputTextBox.Text = year?.Day_21(input);
-                        break;
-
-                    case 22:
-                        OutputTextBox.Text = year?.Day_22(input);
-                        break;
-
-                    case 23:
-                        OutputTextBox.Text = year?.Day_23(input);
-                        break;
-
-                    case 24:
-                        OutputTextBox.Text = year?.Day_24(input);
-                        break;
-
-                    case 25:
-                        OutputTextBox.Text = year?.Day_25(input);
-                        break;
-                }
-            }
+                    1 => year?.Day_01(input),
+                    2 => year?.Day_02(input),
+                    3 => year?.Day_03(input),
+                    4 => year?.Day_04(input),
+                    5 => year?.Day_05(input),
+                    6 => year?.Day_06(input),
+                    7 => year?.Day_07(input),
+                    8 => year?.Day_08(input),
+                    9 => year?.Day_09(input),
+                    10 => year?.Day_10(input),
+                    11 => year?.Day_11(input),
+                    12 => year?.Day_12(input),
+                    13 => year?.Day_13(input),
+                    14 => year?.Day_14(input),
+                    15 => year?.Day_15(input),
+                    16 => year?.Day_16(input),
+                    17 => year?.Day_17(input),
+                    18 => year?.Day_18(input),
+                    19 => year?.Day_19(input),
+                    20 => year?.Day_20(input),
+                    21 => year?.Day_21(input),
+                    22 => year?.Day_22(input),
+                    23 => year?.Day_23(input),
+                    24 => year?.Day_24(input),
+                    25 => year?.Day_25(input)
+                };
         }
 
         private void UseTestInput_CheckedChanged(object sender, EventArgs e)
