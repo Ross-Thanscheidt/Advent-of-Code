@@ -20,13 +20,12 @@ namespace Advent_of_Code
                 else
                 {
                     mostCalories.Add(currentElfCalories);
-                    mostCalories = mostCalories.OrderByDescending(c => c).Take(3).ToList();
                     currentElfCalories = 0;
                 }
             }
 
             mostCalories.Add(currentElfCalories);
-            mostCalories = mostCalories.OrderByDescending(c => c).Take(3).ToList();
+            mostCalories = mostCalories.OrderDescending().Take(3).ToList();
 
             var endTimestamp = DateTime.Now;
 
