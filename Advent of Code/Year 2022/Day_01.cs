@@ -8,7 +8,7 @@ namespace Advent_of_Code
         {
             var startTimestamp = DateTime.Now;
 
-            var mostCalories = new List<long>();
+            var caloriesPerElf = new List<long>();
             long currentElfCalories = 0;
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
@@ -19,18 +19,18 @@ namespace Advent_of_Code
                 }
                 else
                 {
-                    mostCalories.Add(currentElfCalories);
+                    caloriesPerElf.Add(currentElfCalories);
                     currentElfCalories = 0;
                 }
             }
 
-            mostCalories.Add(currentElfCalories);
-            mostCalories = mostCalories.OrderDescending().Take(3).ToList();
+            caloriesPerElf.Add(currentElfCalories);
+            caloriesPerElf = caloriesPerElf.OrderDescending().Take(3).ToList();
 
             var endTimestamp = DateTime.Now;
 
-            return $"{mostCalories[0]:N0} calories is the most being carried by one Elf\r\n" +
-                   $"{mostCalories.Sum():N0} calories are being carried by the top three Elves\r\n" +
+            return $"{caloriesPerElf[0]:N0} calories is the most being carried by one Elf\r\n" +
+                   $"{caloriesPerElf.Sum():N0} calories are being carried by the top three Elves\r\n" +
                    $"({(endTimestamp - startTimestamp) * 1000:s\\.ffffff} ms)";
         }
 
