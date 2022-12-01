@@ -1,0 +1,99 @@
+D2FE28
+
+110100101111111000101000
+
+38006F45291200
+
+00111000000000000110111101000101001010010001001000000000
+
+EE00D40C823060
+
+11101110000000001101010000001100100000100011000001100000
+
+8A004A801A8002F478
+
+100 Version 4
+010 Type ID 2 (operator)
+1 (11 bits) Number of Sub-Packets
+00000000001 1 Sub-Packet
+001 Version 1
+010 Type ID 2 (operator)
+1 (11 bits) Number of Sub-Packets
+00000000001 1 Sub-Packet
+101 Version 5
+010 Type ID 2 (operator)
+0 (15 bits) Number of bits for Sub-Packets
+000000000001011 11 bits
+110 Version 6
+100 Type ID 4 (literal value)
+01111 Value 1111 = 15
+000 extra bits
+
+620080001611562C8802118E34
+
+011 Version 3
+000 Type ID 0
+1 Next 11 bits has Number of Sub-Packets
+00000000010 2 Sub-Packets
+   Sub-Packet 1:
+   000 Version 0
+   000 Type ID 0 (operator)
+   0 Next 15 bits has Number of Bits for Sub-Packets
+   000000000010110 22 bits for Sub-Packets
+      Sub-Packet 1-1:
+      000 Version 0
+      100 Type ID 4 (literal value)
+      01010 Value 1010 = 10
+      Sub-Packet 1-2:
+      101 Version 5
+      100 Type ID 4 (literal value)
+      01011 Value 1011 = 11
+   Sub-Packet 2:
+   001 Version 1
+   000 Type ID 0 (operator)
+   1 Next 11 bits has Number of Sub-Packets
+   00000000010 2 Sub-Packets
+      Sub-Packet 2-1:
+      000 Version 0
+      100 Type ID 4 (literal value)
+      01100 Value 1100 = 12
+      Sub-Packet 2-2:
+      011 Version 3
+      100 Type ID 4 (literal value)
+      01101 Value 1101 = 13
+00
+
+C0015000016115A2E0802F182340
+
+110 Version 6
+000 Type ID 0 (operator)
+0 15 bits for Sub-Packet Bit Count
+000000001010100 84 bits for sub-packets
+   000 Version 0
+   000 Type ID 0 (operator)
+   0 15 bits for SP Bit Count
+   000000000010110 22 bits
+      000 Version 0
+      100 Type ID 4 (literal value)
+      01010 Value 1010 = 10
+      110 Version 6
+      100 Type ID 4 (literal value)
+      01011 value 1011 = 11
+   100 Version 4
+   000 Type ID 0 (operator)
+   1 11 bits for SP Count
+   00000000010 2 Sub-Packets
+      111 Version 7
+      100 Type ID 4 (literal value)
+      01100 Value 1100 = 12
+      000 Version 0
+      100 Type ID 4 (literal value)
+      01101 Value 1101 = 13
+
+000000
+
+A0016C880162017C3686B18A3D4780
+
+101000000000000101101100100010000000000101100010000000010111110000110110100001101011000110001010001111010100011110000000
+
+(0.036300 ms)
