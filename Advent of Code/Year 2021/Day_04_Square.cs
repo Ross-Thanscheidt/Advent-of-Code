@@ -2,6 +2,10 @@
 {
     public struct Square
     {
+        public Square()
+        {
+        }
+
         public int Number { get; set; }
         public bool Marked { get; set; } = false;
     }
