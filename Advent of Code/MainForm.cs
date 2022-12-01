@@ -7,7 +7,7 @@ namespace Advent_of_Code
          * Ross W. Thanscheidt
          */
 
-        string INPUT_YEAR_FOLDER = @"%UserProfile%\Code\Advent of Code\Advent of Code\Year {0}";
+        string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
         string INPUT_FILE_FORMAT = @"\Input\Day {0:00}.txt";
 
         public MainForm()
