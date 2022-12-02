@@ -8,7 +8,7 @@ namespace Advent_of_Code
          */
 
         string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
-        string INPUT_FILE_FORMAT = @"\Input\Day {0:00}.txt";
+        string INPUT_FILE_FORMAT = @"\Input\Day_{0:00}.txt";
 
         public MainForm()
         {

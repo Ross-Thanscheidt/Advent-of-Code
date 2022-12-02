@@ -9,14 +9,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Update="Year 2021\Year_2021_Day_03.cs" />
-    <Compile Update="Year 2021\Year_2021_Day_02.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Year 2022\Input.Test\" />
-    <Folder Include="Year 2022\Input\" />
-  </ItemGroup>
-
 </Project>
