@@ -8,6 +8,8 @@
 
             var startTimestamp = DateTime.Now;
             
+            // Part One - XYZ is Object (Rock/Paper/Scissors)
+
             Dictionary<char, string> objectLoseDrawWin = new()
             {
                 { 'X', "BAC" },
@@ -20,6 +22,8 @@
                 .Sum(line =>
                         "XYZ".IndexOf(line.myObject) + 1 + // Rock=1, Paper=2, Scissors = 3
                         objectLoseDrawWin[line.myObject].IndexOf(line.opponent) * 3); // Lose=0, Draw=3, Win=6
+
+            // Part Two - XYZ is Outcome (Lose/Draw/Win)
 
             Dictionary<char, int[]> outcomeLoseDrawWin = new()
             {
