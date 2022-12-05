@@ -29,13 +29,12 @@
                 .Where(pair =>
                     !((pair.range1.Start < pair.range2.Start && pair.range1.End < pair.range2.Start) ||
                       (pair.range1.Start > pair.range2.End && pair.range1.End > pair.range2.End)));
-            
+
             var endTimestamp = DateTime.Now;
 
             return $"There are {containingPairs.Count():N0} assignment pairs where one range fully contains the other\r\n" +
                    $"There are {overlappingPairs.Count():N0} assignment pairs where the ranges overlap\r\n" +
                    $"({(endTimestamp - startTimestamp) * 1000:s\\.ffffff} ms)";
         }
-
     }
 }
