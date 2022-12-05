@@ -48,11 +48,23 @@ namespace Advent_of_Code
             }
             YearSelection.Value = YearSelection.Maximum;
 
-            DaySelection.Value = DateTime.Today < new DateTime((int)YearSelection.Value, 12, 1)
-                                 ? 1
-                                 : DateTime.Today > new DateTime((int)YearSelection.Value, 12, 25)
-                                 ? 25
-                                 : DateTime.Today.Day;
+            if (DateTime.Today < new DateTime((int)YearSelection.Value, 12, 1))
+            {
+                DaySelection.Value = 1;
+            }
+            else if (DateTime.Today > new DateTime((int)YearSelection.Value, 12, 25))
+            {
+                DaySelection.Value = 25;
+            }
+            else
+            {
+                DaySelection.Value = DateTime.Today.Day;
+            }
+
+            while (DaySelection.Value > 1 && string.IsNullOrWhiteSpace(InputTextBox.Text))
+            {
+                DaySelection.Value--;
+            }
         }
 
         private void GoButton_Click(object sender, EventArgs e)
