@@ -11,6 +11,7 @@ namespace Advent_of_Code
 
             var visibleTrees = 0;
             var maxScenicScore = 0;
+
             int[][] map = null;
 
             // Fill the map of trees with their heights
@@ -41,20 +42,20 @@ namespace Advent_of_Code
                         var height = map[row][col];
 
                         // This tree is visible if only shorter trees to the left, or to the right, or up, or down
-                        if (!map[row].Take(col).Any(h => h >= height) ||
-                            !map[row].Skip(col + 1).Any(h => h >= height) ||
-                            !map.Take(row).Select(r => r[col]).Any(h => h >= height) ||
-                            !map.Skip(row+1).Select(r => r[col]).Any(h => h >= height))
+                        if (!map[row][..col].Any(h => h >= height) ||
+                            !map[row][(col+1)..].Any(h => h >= height) ||
+                            !map[..row].Select(r => r[col]).Any(h => h >= height) ||
+                            !map[(row+1)..].Select(r => r[col]).Any(h => h >= height))
                         {
                             visibleTrees++;
                         }
 
                         // Calculate the Scenic Score for this tree by multiplying left, right, up, and down counts
                         var scenicScore =
-                            map[row].Take(col).Reverse().TakeUntilIncluding(h => h >= height).Count() *
-                            map[row].Skip(col + 1).TakeUntilIncluding(h => h >= height).Count() *
-                            map.Take(row).Select(r => r[col]).Reverse().TakeUntilIncluding(h => h >= height).Count() *
-                            map.Skip(row+1).Select(r => r[col]).TakeUntilIncluding(h => h >= height).Count();
+                            map[row][..col].Reverse().TakeUntilIncluding(h => h >= height).Count() *
+                            map[row][(col+1)..].TakeUntilIncluding(h => h >= height).Count() *
+                            map[..row].Select(r => r[col]).Reverse().TakeUntilIncluding(h => h >= height).Count() *
+                            map[(row+1)..].Select(r => r[col]).TakeUntilIncluding(h => h >= height).Count();
 
                         // Keep the highest score
                         maxScenicScore = Math.Max(maxScenicScore, scenicScore);
