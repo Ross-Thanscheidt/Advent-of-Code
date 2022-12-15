@@ -22,7 +22,7 @@ namespace Advent_of_Code
 
         private string Input_Filename(decimal Year, decimal Day)
         {
-            return Input_Year_Folder(Year) + String.Format(INPUT_FILE_FORMAT.Replace("Input", UseTestInput.Checked ? "Input.Test" : "Input"), DaySelection.Value);
+            return Input_Year_Folder(Year) + String.Format(INPUT_FILE_FORMAT.Replace("Input", UseTestInput.Checked ? "Input.Test" : "Input"), Day);
         }
 
         private void UpdateInputTextBoxText()
@@ -103,7 +103,8 @@ namespace Advent_of_Code
                     22 => year?.Day_22(input),
                     23 => year?.Day_23(input),
                     24 => year?.Day_24(input),
-                    25 => year?.Day_25(input)
+                    25 => year?.Day_25(input),
+                    _ => string.Empty
                 };
         }
 

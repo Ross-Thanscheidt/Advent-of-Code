@@ -74,7 +74,7 @@
             this.InputTextBox.Multiline = true;
             this.InputTextBox.Name = "InputTextBox";
             this.InputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.InputTextBox.Size = new System.Drawing.Size(776, 199);
+            this.InputTextBox.Size = new System.Drawing.Size(898, 199);
             this.InputTextBox.TabIndex = 9;
             // 
             // InputLabel
@@ -95,7 +95,7 @@
             this.OutputTextBox.Multiline = true;
             this.OutputTextBox.Name = "OutputTextBox";
             this.OutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.OutputTextBox.Size = new System.Drawing.Size(776, 199);
+            this.OutputTextBox.Size = new System.Drawing.Size(898, 199);
             this.OutputTextBox.TabIndex = 2;
             // 
             // OutputLabel
@@ -111,7 +111,7 @@
             // GoButton
             // 
             this.GoButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.GoButton.Location = new System.Drawing.Point(330, 278);
+            this.GoButton.Location = new System.Drawing.Point(391, 278);
             this.GoButton.Name = "GoButton";
             this.GoButton.Size = new System.Drawing.Size(137, 33);
             this.GoButton.TabIndex = 0;
@@ -167,7 +167,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 533);
+            this.ClientSize = new System.Drawing.Size(922, 533);
             this.Controls.Add(this.UseTestInput);
             this.Controls.Add(this.YearLabel);
             this.Controls.Add(this.YearSelection);
