@@ -1,18 +1,20 @@
-﻿namespace Advent_of_Code
+﻿using System.Diagnostics;
+
+namespace Advent_of_Code
 {
     public partial class Year_2023 : IYear
     {
         public string Day_20(StringReader input)
         {
-            var startTimestamp = DateTime.Now;
+            Stopwatch stopwatch = Stopwatch.StartNew();
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
             }
 
-            var endTimestamp = DateTime.Now;
+            stopwatch.Stop();
 
-            return $"({(endTimestamp - startTimestamp) * 1000:s\\.ffffff} ms)";
+            return $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
     }

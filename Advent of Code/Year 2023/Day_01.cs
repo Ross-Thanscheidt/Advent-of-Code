@@ -1,10 +1,13 @@
-﻿namespace Advent_of_Code
+﻿using System.Diagnostics;
+
+namespace Advent_of_Code
 {
     public partial class Year_2023 : IYear
     {
         public string Day_01(StringReader input)
         {
-            var startTimestamp = DateTime.Now;
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             int calibrationSum = 0;
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
@@ -35,10 +38,10 @@
                 calibrationSum += int.Parse(firstDigit.ToString()) * 10 + int.Parse(lastDigit.ToString());
             }
 
-            var endTimestamp = DateTime.Now;
+            stopwatch.Stop();
 
             return $"{calibrationSum:N0} is the sum of all of the calibration values\r\n" +
-                   $"({(endTimestamp - startTimestamp) * 1000:s\\.ffffff} ms)";
+                   $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
     }
