@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 
 namespace Advent_of_Code
 {
@@ -7,14 +6,14 @@ namespace Advent_of_Code
     {
         readonly List<string> DIGIT_NAMES = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 
-        private int Day_01_Calibration_Value(string? line, bool spelledOutDigits)
+        private int Day_01_Calibration_Value(string? line, bool includeDigitNames)
         {
             char firstDigit = '0';
             char lastDigit = '0';
 
             if (line != null)
             {
-                if (spelledOutDigits)
+                if (includeDigitNames)
                 {
                     int digitNumber = 1;
                     DIGIT_NAMES.ForEach(digitName => line = line.Replace(digitName, digitName + digitNumber++ + digitName));
@@ -35,18 +34,18 @@ namespace Advent_of_Code
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             int calibrationSumNumericOnly = 0;
-            int calibrationSumIncludeDigitWords = 0;
+            int calibrationSumIncludeDigitNames = 0;
 
             for (string? line = input.ReadLine(); line != null; line = input.ReadLine())
             {
-                calibrationSumNumericOnly += Day_01_Calibration_Value(line, false);
-                calibrationSumIncludeDigitWords += Day_01_Calibration_Value(line, true);
+                calibrationSumNumericOnly += Day_01_Calibration_Value(line, includeDigitNames: false);
+                calibrationSumIncludeDigitNames += Day_01_Calibration_Value(line, includeDigitNames: true);
             }
 
             stopwatch.Stop();
 
             return $"{calibrationSumNumericOnly:N0} is the sum of all of the calibration values (numeric only)\r\n" +
-                   $"{calibrationSumIncludeDigitWords:N0} is the sum of all of the calibration values (numeric and spelled out)\r\n" +
+                   $"{calibrationSumIncludeDigitNames:N0} is the sum of all of the calibration values (numeric and spelled out)\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
