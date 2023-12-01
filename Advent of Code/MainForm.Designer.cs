@@ -40,6 +40,8 @@
             UseTestInput = new CheckBox();
             UseInputPart1 = new RadioButton();
             UseInputPart2 = new RadioButton();
+            ExpectedAnswerTextBox = new TextBox();
+            ExpectedAnswerLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)DaySelection).BeginInit();
             ((System.ComponentModel.ISupportInitialize)YearSelection).BeginInit();
             SuspendLayout();
@@ -50,7 +52,7 @@
             DaySelection.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
             DaySelection.Name = "DaySelection";
             DaySelection.Size = new Size(57, 27);
-            DaySelection.TabIndex = 6;
+            DaySelection.TabIndex = 8;
             DaySelection.ValueChanged += DaySelection_ValueChanged;
             // 
             // DayLabel
@@ -59,7 +61,7 @@
             DayLabel.Location = new Point(128, 14);
             DayLabel.Name = "DayLabel";
             DayLabel.Size = new Size(35, 20);
-            DayLabel.TabIndex = 5;
+            DayLabel.TabIndex = 7;
             DayLabel.Text = "&Day";
             // 
             // InputTextBox
@@ -70,23 +72,23 @@
             InputTextBox.Multiline = true;
             InputTextBox.Name = "InputTextBox";
             InputTextBox.ScrollBars = ScrollBars.Both;
-            InputTextBox.Size = new Size(898, 199);
-            InputTextBox.TabIndex = 11;
+            InputTextBox.Size = new Size(898, 203);
+            InputTextBox.TabIndex = 13;
             // 
             // InputLabel
             // 
             InputLabel.AutoSize = true;
-            InputLabel.Location = new Point(12, 50);
+            InputLabel.Location = new Point(9, 50);
             InputLabel.Name = "InputLabel";
             InputLabel.Size = new Size(43, 20);
-            InputLabel.TabIndex = 10;
+            InputLabel.TabIndex = 12;
             InputLabel.Text = "&Input";
             // 
             // OutputTextBox
             // 
             OutputTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             OutputTextBox.Font = new Font("Courier New", 9F);
-            OutputTextBox.Location = new Point(12, 322);
+            OutputTextBox.Location = new Point(15, 321);
             OutputTextBox.Multiline = true;
             OutputTextBox.Name = "OutputTextBox";
             OutputTextBox.ScrollBars = ScrollBars.Both;
@@ -97,7 +99,7 @@
             // 
             OutputLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             OutputLabel.AutoSize = true;
-            OutputLabel.Location = new Point(16, 299);
+            OutputLabel.Location = new Point(12, 295);
             OutputLabel.Name = "OutputLabel";
             OutputLabel.Size = new Size(55, 20);
             OutputLabel.TabIndex = 1;
@@ -106,7 +108,7 @@
             // GoButton
             // 
             GoButton.Anchor = AnchorStyles.Bottom;
-            GoButton.Location = new Point(391, 278);
+            GoButton.Location = new Point(378, 282);
             GoButton.Name = "GoButton";
             GoButton.Size = new Size(137, 33);
             GoButton.TabIndex = 0;
@@ -120,7 +122,7 @@
             YearLabel.Location = new Point(15, 14);
             YearLabel.Name = "YearLabel";
             YearLabel.Size = new Size(37, 20);
-            YearLabel.TabIndex = 3;
+            YearLabel.TabIndex = 5;
             YearLabel.Text = "&Year";
             // 
             // YearSelection
@@ -130,7 +132,7 @@
             YearSelection.Minimum = new decimal(new int[] { 2021, 0, 0, 0 });
             YearSelection.Name = "YearSelection";
             YearSelection.Size = new Size(57, 27);
-            YearSelection.TabIndex = 4;
+            YearSelection.TabIndex = 6;
             YearSelection.Value = new decimal(new int[] { 2021, 0, 0, 0 });
             YearSelection.ValueChanged += YearSelection_ValueChanged;
             // 
@@ -142,7 +144,7 @@
             UseTestInput.Location = new Point(255, 14);
             UseTestInput.Name = "UseTestInput";
             UseTestInput.Size = new Size(123, 24);
-            UseTestInput.TabIndex = 7;
+            UseTestInput.TabIndex = 9;
             UseTestInput.Text = "Use &Test Input";
             UseTestInput.UseVisualStyleBackColor = true;
             UseTestInput.CheckedChanged += UseTestInput_CheckedChanged;
@@ -154,7 +156,7 @@
             UseInputPart1.Location = new Point(401, 14);
             UseInputPart1.Name = "UseInputPart1";
             UseInputPart1.Size = new Size(67, 24);
-            UseInputPart1.TabIndex = 8;
+            UseInputPart1.TabIndex = 10;
             UseInputPart1.TabStop = true;
             UseInputPart1.Text = "Part &1";
             UseInputPart1.UseVisualStyleBackColor = true;
@@ -166,16 +168,39 @@
             UseInputPart2.Location = new Point(474, 14);
             UseInputPart2.Name = "UseInputPart2";
             UseInputPart2.Size = new Size(67, 24);
-            UseInputPart2.TabIndex = 9;
+            UseInputPart2.TabIndex = 11;
             UseInputPart2.Text = "Part &2";
             UseInputPart2.UseVisualStyleBackColor = true;
             UseInputPart2.CheckedChanged += UseInputPart2_CheckedChanged;
+            // 
+            // ExpectedAnswerTextBox
+            // 
+            ExpectedAnswerTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ExpectedAnswerTextBox.Font = new Font("Courier New", 9F);
+            ExpectedAnswerTextBox.Location = new Point(9, 571);
+            ExpectedAnswerTextBox.Multiline = true;
+            ExpectedAnswerTextBox.Name = "ExpectedAnswerTextBox";
+            ExpectedAnswerTextBox.ReadOnly = true;
+            ExpectedAnswerTextBox.Size = new Size(898, 59);
+            ExpectedAnswerTextBox.TabIndex = 4;
+            // 
+            // ExpectedAnswerLabel
+            // 
+            ExpectedAnswerLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            ExpectedAnswerLabel.AutoSize = true;
+            ExpectedAnswerLabel.Location = new Point(9, 548);
+            ExpectedAnswerLabel.Name = "ExpectedAnswerLabel";
+            ExpectedAnswerLabel.Size = new Size(122, 20);
+            ExpectedAnswerLabel.TabIndex = 3;
+            ExpectedAnswerLabel.Text = "Expected &Answer";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(922, 533);
+            ClientSize = new Size(922, 642);
+            Controls.Add(ExpectedAnswerLabel);
+            Controls.Add(ExpectedAnswerTextBox);
             Controls.Add(UseInputPart2);
             Controls.Add(UseInputPart1);
             Controls.Add(UseTestInput);
@@ -211,5 +236,7 @@
         private CheckBox UseTestInput;
         private RadioButton UseInputPart1;
         private RadioButton UseInputPart2;
+        private TextBox ExpectedAnswerTextBox;
+        private Label ExpectedAnswerLabel;
     }
 }

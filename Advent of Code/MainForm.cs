@@ -8,7 +8,7 @@ namespace Advent_of_Code
          */
 
         const string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
-        const string INPUT_FILE_FORMAT = @"\Input{0}\Day_{1:00}{2}.txt";
+        const string INPUT_FILE_FORMAT = @"\Input{0}\Day_{1:00}{2}{3}.txt";
 
         public MainForm()
         {
@@ -31,21 +31,22 @@ namespace Advent_of_Code
             return String.Format(Environment.ExpandEnvironmentVariables(INPUT_YEAR_FOLDER), Year);
         }
 
-        private string Input_Filename(decimal year, decimal day, int part = 0)
+        private string Input_Filename(decimal year, decimal day, int part = 0, bool answer = false)
         {
             return Input_Year_Folder(year) +
                 String.Format(
                     INPUT_FILE_FORMAT,
                     UseTestInput.Checked ? ".Test" : "",
                     day,
-                    part > 0 ? "_Part" + part : "");
+                    part > 0 ? "_Part" + part : "",
+                    answer ? "_Answer" : "");
         }
 
         private void UpdateInputTextBoxText()
         {
             decimal year = YearSelection.Value;
             decimal day = DaySelection.Value;
-            var inputFilename = Input_Filename(year, day);
+            string inputFilename = Input_Filename(year, day);
 
             if (!File.Exists(inputFilename))
             {
@@ -63,6 +64,27 @@ namespace Advent_of_Code
             }
 
             InputTextBox.Text = File.Exists(inputFilename) ? File.ReadAllText(inputFilename) : "";
+
+            ExpectedAnswerTextBox.Text = "";
+
+            string answerFilename = Input_Filename(year, day, 1, answer: true);
+
+            if ((!UseInputPart1.Visible || (UseInputPart1.Visible && UseInputPart1.Checked)) && File.Exists(answerFilename))
+            {
+                ExpectedAnswerTextBox.Text += "Part One: " + File.ReadAllText(answerFilename);
+            }
+
+            answerFilename = Input_Filename(year, day, 2, answer: true);
+
+            if ((!UseInputPart1.Visible || (UseInputPart1.Visible && UseInputPart2.Checked)) && File.Exists(answerFilename))
+            {
+                if (ExpectedAnswerTextBox.Text.Length > 0)
+                {
+                    ExpectedAnswerTextBox.Text += "\r\n";
+                }
+
+                ExpectedAnswerTextBox.Text += "Part Two: " + File.ReadAllText(answerFilename);
+            }
         }
 
         private void YearSelection_ValueChanged(object sender, EventArgs e)
