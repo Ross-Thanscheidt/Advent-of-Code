@@ -1,46 +1,52 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 
 namespace Advent_of_Code
 {
     public partial class Year_2023 : IYear
     {
+        readonly List<string> DIGIT_NAMES = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
+        private int Day_01_Calibration_Value(string? line, bool spelledOutDigits)
+        {
+            char firstDigit = '0';
+            char lastDigit = '0';
+
+            if (line != null)
+            {
+                if (spelledOutDigits)
+                {
+                    int digitNumber = 1;
+                    DIGIT_NAMES.ForEach(digitName => line = line.Replace(digitName, digitName + digitNumber++ + digitName));
+                }
+
+                foreach (char character in line.Where(c => Char.IsDigit(c)))
+                {
+                    if (firstDigit == '0') firstDigit = character;
+                    lastDigit = character;
+                }
+            }
+
+            return int.Parse(firstDigit.ToString()) * 10 + int.Parse(lastDigit.ToString());
+        }
+
         public string Day_01(StringReader input)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            int calibrationSum = 0;
+            int calibrationSumNumericOnly = 0;
+            int calibrationSumIncludeDigitWords = 0;
 
-            for (var line = input.ReadLine(); line != null; line = input.ReadLine())
+            for (string? line = input.ReadLine(); line != null; line = input.ReadLine())
             {
-                line = line
-                    .Replace("one", "one1one")
-                    .Replace("two", "two2two")
-                    .Replace("three", "three3three")
-                    .Replace("four", "four4four")
-                    .Replace("five", "five5five")
-                    .Replace("six", "six6six")
-                    .Replace("seven", "seven7seven")
-                    .Replace("eight", "eight8eight")
-                    .Replace("nine", "nine9nine");
-
-                char firstDigit = '0';
-                char lastDigit = '0';
-
-                foreach (char character in line)
-                {
-                    if (int.TryParse(character.ToString(), out int _))
-                    {
-                        if (firstDigit == '0') firstDigit = character;
-                        lastDigit = character;
-                    }
-                }
-
-                calibrationSum += int.Parse(firstDigit.ToString()) * 10 + int.Parse(lastDigit.ToString());
+                calibrationSumNumericOnly += Day_01_Calibration_Value(line, false);
+                calibrationSumIncludeDigitWords += Day_01_Calibration_Value(line, true);
             }
 
             stopwatch.Stop();
 
-            return $"{calibrationSum:N0} is the sum of all of the calibration values\r\n" +
+            return $"{calibrationSumNumericOnly:N0} is the sum of all of the calibration values (numeric only)\r\n" +
+                   $"{calibrationSumIncludeDigitWords:N0} is the sum of all of the calibration values (numeric and spelled out)\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
