@@ -73,6 +73,7 @@ namespace Advent_of_Code
             {
                 2021 => new Year_2021(),
                 2022 => new Year_2022(),
+                2023 => new Year_2023(),
                 _ => null
             };
 
