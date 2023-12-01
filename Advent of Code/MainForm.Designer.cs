@@ -28,164 +28,173 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DaySelection = new System.Windows.Forms.NumericUpDown();
-            this.DayLabel = new System.Windows.Forms.Label();
-            this.InputTextBox = new System.Windows.Forms.TextBox();
-            this.InputLabel = new System.Windows.Forms.Label();
-            this.OutputTextBox = new System.Windows.Forms.TextBox();
-            this.OutputLabel = new System.Windows.Forms.Label();
-            this.GoButton = new System.Windows.Forms.Button();
-            this.YearLabel = new System.Windows.Forms.Label();
-            this.YearSelection = new System.Windows.Forms.NumericUpDown();
-            this.UseTestInput = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DaySelection)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.YearSelection)).BeginInit();
-            this.SuspendLayout();
+            DaySelection = new NumericUpDown();
+            DayLabel = new Label();
+            InputTextBox = new TextBox();
+            InputLabel = new Label();
+            OutputTextBox = new TextBox();
+            OutputLabel = new Label();
+            GoButton = new Button();
+            YearLabel = new Label();
+            YearSelection = new NumericUpDown();
+            UseTestInput = new CheckBox();
+            UseInputPart1 = new RadioButton();
+            UseInputPart2 = new RadioButton();
+            ((System.ComponentModel.ISupportInitialize)DaySelection).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)YearSelection).BeginInit();
+            SuspendLayout();
             // 
             // DaySelection
             // 
-            this.DaySelection.Location = new System.Drawing.Point(169, 12);
-            this.DaySelection.Maximum = new decimal(new int[] {
-            25,
-            0,
-            0,
-            0});
-            this.DaySelection.Name = "DaySelection";
-            this.DaySelection.Size = new System.Drawing.Size(57, 27);
-            this.DaySelection.TabIndex = 6;
-            this.DaySelection.ValueChanged += new System.EventHandler(this.DaySelection_ValueChanged);
+            DaySelection.Location = new Point(169, 12);
+            DaySelection.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            DaySelection.Name = "DaySelection";
+            DaySelection.Size = new Size(57, 27);
+            DaySelection.TabIndex = 6;
+            DaySelection.ValueChanged += DaySelection_ValueChanged;
             // 
             // DayLabel
             // 
-            this.DayLabel.AutoSize = true;
-            this.DayLabel.Location = new System.Drawing.Point(128, 14);
-            this.DayLabel.Name = "DayLabel";
-            this.DayLabel.Size = new System.Drawing.Size(35, 20);
-            this.DayLabel.TabIndex = 5;
-            this.DayLabel.Text = "&Day";
+            DayLabel.AutoSize = true;
+            DayLabel.Location = new Point(128, 14);
+            DayLabel.Name = "DayLabel";
+            DayLabel.Size = new Size(35, 20);
+            DayLabel.TabIndex = 5;
+            DayLabel.Text = "&Day";
             // 
             // InputTextBox
             // 
-            this.InputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputTextBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.InputTextBox.Location = new System.Drawing.Point(12, 73);
-            this.InputTextBox.Multiline = true;
-            this.InputTextBox.Name = "InputTextBox";
-            this.InputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.InputTextBox.Size = new System.Drawing.Size(898, 199);
-            this.InputTextBox.TabIndex = 9;
+            InputTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            InputTextBox.Font = new Font("Courier New", 9F);
+            InputTextBox.Location = new Point(12, 73);
+            InputTextBox.Multiline = true;
+            InputTextBox.Name = "InputTextBox";
+            InputTextBox.ScrollBars = ScrollBars.Both;
+            InputTextBox.Size = new Size(898, 199);
+            InputTextBox.TabIndex = 11;
             // 
             // InputLabel
             // 
-            this.InputLabel.AutoSize = true;
-            this.InputLabel.Location = new System.Drawing.Point(12, 50);
-            this.InputLabel.Name = "InputLabel";
-            this.InputLabel.Size = new System.Drawing.Size(43, 20);
-            this.InputLabel.TabIndex = 8;
-            this.InputLabel.Text = "&Input";
+            InputLabel.AutoSize = true;
+            InputLabel.Location = new Point(12, 50);
+            InputLabel.Name = "InputLabel";
+            InputLabel.Size = new Size(43, 20);
+            InputLabel.TabIndex = 10;
+            InputLabel.Text = "&Input";
             // 
             // OutputTextBox
             // 
-            this.OutputTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.OutputTextBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.OutputTextBox.Location = new System.Drawing.Point(12, 322);
-            this.OutputTextBox.Multiline = true;
-            this.OutputTextBox.Name = "OutputTextBox";
-            this.OutputTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.OutputTextBox.Size = new System.Drawing.Size(898, 199);
-            this.OutputTextBox.TabIndex = 2;
+            OutputTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            OutputTextBox.Font = new Font("Courier New", 9F);
+            OutputTextBox.Location = new Point(12, 322);
+            OutputTextBox.Multiline = true;
+            OutputTextBox.Name = "OutputTextBox";
+            OutputTextBox.ScrollBars = ScrollBars.Both;
+            OutputTextBox.Size = new Size(898, 199);
+            OutputTextBox.TabIndex = 2;
             // 
             // OutputLabel
             // 
-            this.OutputLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.OutputLabel.AutoSize = true;
-            this.OutputLabel.Location = new System.Drawing.Point(16, 299);
-            this.OutputLabel.Name = "OutputLabel";
-            this.OutputLabel.Size = new System.Drawing.Size(55, 20);
-            this.OutputLabel.TabIndex = 1;
-            this.OutputLabel.Text = "&Output";
+            OutputLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            OutputLabel.AutoSize = true;
+            OutputLabel.Location = new Point(16, 299);
+            OutputLabel.Name = "OutputLabel";
+            OutputLabel.Size = new Size(55, 20);
+            OutputLabel.TabIndex = 1;
+            OutputLabel.Text = "&Output";
             // 
             // GoButton
             // 
-            this.GoButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.GoButton.Location = new System.Drawing.Point(391, 278);
-            this.GoButton.Name = "GoButton";
-            this.GoButton.Size = new System.Drawing.Size(137, 33);
-            this.GoButton.TabIndex = 0;
-            this.GoButton.Text = "&Go";
-            this.GoButton.UseVisualStyleBackColor = true;
-            this.GoButton.Click += new System.EventHandler(this.GoButton_Click);
+            GoButton.Anchor = AnchorStyles.Bottom;
+            GoButton.Location = new Point(391, 278);
+            GoButton.Name = "GoButton";
+            GoButton.Size = new Size(137, 33);
+            GoButton.TabIndex = 0;
+            GoButton.Text = "&Go";
+            GoButton.UseVisualStyleBackColor = true;
+            GoButton.Click += GoButton_Click;
             // 
             // YearLabel
             // 
-            this.YearLabel.AutoSize = true;
-            this.YearLabel.Location = new System.Drawing.Point(15, 14);
-            this.YearLabel.Name = "YearLabel";
-            this.YearLabel.Size = new System.Drawing.Size(37, 20);
-            this.YearLabel.TabIndex = 3;
-            this.YearLabel.Text = "&Year";
+            YearLabel.AutoSize = true;
+            YearLabel.Location = new Point(15, 14);
+            YearLabel.Name = "YearLabel";
+            YearLabel.Size = new Size(37, 20);
+            YearLabel.TabIndex = 3;
+            YearLabel.Text = "&Year";
             // 
             // YearSelection
             // 
-            this.YearSelection.Location = new System.Drawing.Point(56, 12);
-            this.YearSelection.Maximum = new decimal(new int[] {
-            2021,
-            0,
-            0,
-            0});
-            this.YearSelection.Minimum = new decimal(new int[] {
-            2021,
-            0,
-            0,
-            0});
-            this.YearSelection.Name = "YearSelection";
-            this.YearSelection.Size = new System.Drawing.Size(57, 27);
-            this.YearSelection.TabIndex = 4;
-            this.YearSelection.Value = new decimal(new int[] {
-            2021,
-            0,
-            0,
-            0});
+            YearSelection.Location = new Point(56, 12);
+            YearSelection.Maximum = new decimal(new int[] { 2021, 0, 0, 0 });
+            YearSelection.Minimum = new decimal(new int[] { 2021, 0, 0, 0 });
+            YearSelection.Name = "YearSelection";
+            YearSelection.Size = new Size(57, 27);
+            YearSelection.TabIndex = 4;
+            YearSelection.Value = new decimal(new int[] { 2021, 0, 0, 0 });
+            YearSelection.ValueChanged += YearSelection_ValueChanged;
             // 
             // UseTestInput
             // 
-            this.UseTestInput.AutoSize = true;
-            this.UseTestInput.Checked = true;
-            this.UseTestInput.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.UseTestInput.Location = new System.Drawing.Point(255, 14);
-            this.UseTestInput.Name = "UseTestInput";
-            this.UseTestInput.Size = new System.Drawing.Size(123, 24);
-            this.UseTestInput.TabIndex = 7;
-            this.UseTestInput.Text = "Use &Test Input";
-            this.UseTestInput.UseVisualStyleBackColor = true;
-            this.UseTestInput.CheckedChanged += new System.EventHandler(this.UseTestInput_CheckedChanged);
+            UseTestInput.AutoSize = true;
+            UseTestInput.Checked = true;
+            UseTestInput.CheckState = CheckState.Checked;
+            UseTestInput.Location = new Point(255, 14);
+            UseTestInput.Name = "UseTestInput";
+            UseTestInput.Size = new Size(123, 24);
+            UseTestInput.TabIndex = 7;
+            UseTestInput.Text = "Use &Test Input";
+            UseTestInput.UseVisualStyleBackColor = true;
+            UseTestInput.CheckedChanged += UseTestInput_CheckedChanged;
+            // 
+            // UseInputPart1
+            // 
+            UseInputPart1.AutoSize = true;
+            UseInputPart1.Checked = true;
+            UseInputPart1.Location = new Point(401, 14);
+            UseInputPart1.Name = "UseInputPart1";
+            UseInputPart1.Size = new Size(67, 24);
+            UseInputPart1.TabIndex = 8;
+            UseInputPart1.TabStop = true;
+            UseInputPart1.Text = "Part &1";
+            UseInputPart1.UseVisualStyleBackColor = true;
+            UseInputPart1.CheckedChanged += UseInputPart2_CheckedChanged;
+            // 
+            // UseInputPart2
+            // 
+            UseInputPart2.AutoSize = true;
+            UseInputPart2.Location = new Point(474, 14);
+            UseInputPart2.Name = "UseInputPart2";
+            UseInputPart2.Size = new Size(67, 24);
+            UseInputPart2.TabIndex = 9;
+            UseInputPart2.Text = "Part &2";
+            UseInputPart2.UseVisualStyleBackColor = true;
+            UseInputPart2.CheckedChanged += UseInputPart2_CheckedChanged;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 533);
-            this.Controls.Add(this.UseTestInput);
-            this.Controls.Add(this.YearLabel);
-            this.Controls.Add(this.YearSelection);
-            this.Controls.Add(this.GoButton);
-            this.Controls.Add(this.OutputLabel);
-            this.Controls.Add(this.OutputTextBox);
-            this.Controls.Add(this.InputLabel);
-            this.Controls.Add(this.InputTextBox);
-            this.Controls.Add(this.DayLabel);
-            this.Controls.Add(this.DaySelection);
-            this.Name = "MainForm";
-            this.Text = "Advent of Code - Ross";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DaySelection)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.YearSelection)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(922, 533);
+            Controls.Add(UseInputPart2);
+            Controls.Add(UseInputPart1);
+            Controls.Add(UseTestInput);
+            Controls.Add(YearLabel);
+            Controls.Add(YearSelection);
+            Controls.Add(GoButton);
+            Controls.Add(OutputLabel);
+            Controls.Add(OutputTextBox);
+            Controls.Add(InputLabel);
+            Controls.Add(InputTextBox);
+            Controls.Add(DayLabel);
+            Controls.Add(DaySelection);
+            Name = "MainForm";
+            Text = "Advent of Code - Ross";
+            Load += MainForm_Load;
+            ((System.ComponentModel.ISupportInitialize)DaySelection).EndInit();
+            ((System.ComponentModel.ISupportInitialize)YearSelection).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -200,5 +209,7 @@
         private Label YearLabel;
         private NumericUpDown YearSelection;
         private CheckBox UseTestInput;
+        private RadioButton UseInputPart1;
+        private RadioButton UseInputPart2;
     }
 }

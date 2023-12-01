@@ -7,12 +7,23 @@ namespace Advent_of_Code
          * Ross W. Thanscheidt
          */
 
-        string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
-        string INPUT_FILE_FORMAT = @"\Input\Day_{0:00}.txt";
+        const string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
+        const string INPUT_FILE_FORMAT = @"\Input{0}\Day_{1:00}{2}.txt";
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void ShowInputPartSelection(bool showSelection = true)
+        {
+            UseInputPart1.Visible = showSelection;
+            UseInputPart2.Visible = showSelection;
+
+            if (showSelection)
+            {
+                UseInputPart1.Checked = true;
+            }
         }
 
         private string Input_Year_Folder(decimal Year)
@@ -20,18 +31,69 @@ namespace Advent_of_Code
             return String.Format(Environment.ExpandEnvironmentVariables(INPUT_YEAR_FOLDER), Year);
         }
 
-        private string Input_Filename(decimal Year, decimal Day)
+        private string Input_Filename(decimal year, decimal day, int part = 0)
         {
-            return Input_Year_Folder(Year) + String.Format(INPUT_FILE_FORMAT.Replace("Input", UseTestInput.Checked ? "Input.Test" : "Input"), Day);
+            return Input_Year_Folder(year) +
+                String.Format(
+                    INPUT_FILE_FORMAT,
+                    UseTestInput.Checked ? ".Test" : "",
+                    day,
+                    part > 0 ? "_Part" + part : "");
         }
 
         private void UpdateInputTextBoxText()
         {
-            var inputFilename = Input_Filename(YearSelection.Value, DaySelection.Value);
+            decimal year = YearSelection.Value;
+            decimal day = DaySelection.Value;
+            var inputFilename = Input_Filename(year, day);
+
+            if (!File.Exists(inputFilename))
+            {
+                if (File.Exists(Input_Filename(year, day, 1)) &&
+                    File.Exists(Input_Filename(year, day, 2)))
+                {
+                    if (!UseInputPart1.Visible)
+                    {
+                        ShowInputPartSelection();
+                        UseInputPart1.Checked = true;
+                    }
+
+                    inputFilename = Input_Filename(year, day, UseInputPart1.Checked ? 1 : 2);
+                }
+            }
+
             InputTextBox.Text = File.Exists(inputFilename) ? File.ReadAllText(inputFilename) : "";
         }
 
+        private void YearSelection_ValueChanged(object sender, EventArgs e)
+        {
+            ShowInputPartSelection(false);
+            UpdateInputTextBoxText();
+            OutputTextBox.Text = "";
+        }
+
         private void DaySelection_ValueChanged(object sender, EventArgs e)
+        {
+            ShowInputPartSelection(false);
+            UpdateInputTextBoxText();
+            OutputTextBox.Text = "";
+        }
+
+        private void UseTestInput_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowInputPartSelection(false);
+            UpdateInputTextBoxText();
+            OutputTextBox.Text = "";
+        }
+
+
+        private void UseInputPart1_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateInputTextBoxText();
+            OutputTextBox.Text = "";
+        }
+
+        private void UseInputPart2_CheckedChanged(object sender, EventArgs e)
         {
             UpdateInputTextBoxText();
             OutputTextBox.Text = "";
@@ -107,11 +169,6 @@ namespace Advent_of_Code
                     25 => year?.Day_25(input),
                     _ => string.Empty
                 };
-        }
-
-        private void UseTestInput_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateInputTextBoxText();
         }
     }
 }
