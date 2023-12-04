@@ -72,7 +72,7 @@
             InputTextBox.Multiline = true;
             InputTextBox.Name = "InputTextBox";
             InputTextBox.ScrollBars = ScrollBars.Both;
-            InputTextBox.Size = new Size(898, 203);
+            InputTextBox.Size = new Size(1156, 203);
             InputTextBox.TabIndex = 13;
             // 
             // InputLabel
@@ -92,7 +92,7 @@
             OutputTextBox.Multiline = true;
             OutputTextBox.Name = "OutputTextBox";
             OutputTextBox.ScrollBars = ScrollBars.Both;
-            OutputTextBox.Size = new Size(898, 199);
+            OutputTextBox.Size = new Size(1156, 199);
             OutputTextBox.TabIndex = 2;
             // 
             // OutputLabel
@@ -108,7 +108,7 @@
             // GoButton
             // 
             GoButton.Anchor = AnchorStyles.Bottom;
-            GoButton.Location = new Point(378, 282);
+            GoButton.Location = new Point(507, 282);
             GoButton.Name = "GoButton";
             GoButton.Size = new Size(137, 33);
             GoButton.TabIndex = 0;
@@ -181,7 +181,7 @@
             ExpectedAnswerTextBox.Multiline = true;
             ExpectedAnswerTextBox.Name = "ExpectedAnswerTextBox";
             ExpectedAnswerTextBox.ReadOnly = true;
-            ExpectedAnswerTextBox.Size = new Size(898, 59);
+            ExpectedAnswerTextBox.Size = new Size(1156, 59);
             ExpectedAnswerTextBox.TabIndex = 4;
             // 
             // ExpectedAnswerLabel
@@ -198,7 +198,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(922, 642);
+            ClientSize = new Size(1180, 642);
             Controls.Add(ExpectedAnswerLabel);
             Controls.Add(ExpectedAnswerTextBox);
             Controls.Add(UseInputPart2);
