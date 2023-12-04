@@ -48,6 +48,5 @@ namespace Advent_of_Code
                    $"{calibrationSumIncludeDigitNames:N0} is the sum of all of the calibration values (numeric and spelled out)\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
-
     }
 }
