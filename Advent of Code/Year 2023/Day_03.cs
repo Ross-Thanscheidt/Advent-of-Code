@@ -34,6 +34,7 @@ namespace Advent_of_Code
             int columns = schematic[0].Length;
             int column;
 
+            // Scan the schematic for Part Numbers and Gears
             for (int row = 0; row < rows; row++)
             {
                 column = 0;
@@ -43,7 +44,7 @@ namespace Advent_of_Code
                     // Is it a Number?  If so, then is it a Part Number (indicated by an adjacent symbol)?
                     if (Char.IsDigit(schematic[row][column]))
                     {
-                        // Grab the Number
+                        // Get the Number
                         int firstDigitColumn = column;
 
                         while (column < columns && Char.IsDigit(schematic[row][column]))
@@ -53,7 +54,7 @@ namespace Advent_of_Code
 
                         int number = int.Parse(schematic[row][firstDigitColumn..column]);
 
-                        // Find all adjacent characters
+                        // Get all of the adjacent characters
                         string adjacentCharacters =
                             (row > 0 ? schematic[row - 1][Math.Max(0, firstDigitColumn - 1)..Math.Min(columns, column + 1)] : "") +
                             (firstDigitColumn > 0 ? schematic[row].Substring(firstDigitColumn - 1, 1) : "") +
@@ -63,7 +64,7 @@ namespace Advent_of_Code
                         // Remove everything but symbols
                         adjacentCharacters = NonSymbolsRegex().Replace(adjacentCharacters, "");
 
-                        // If it is a Part Number (indicated by an adjacent symbol) then add it to the sum of Part Numbers
+                        // If there is an adjacent symbol, it is a Part Number
                         if (adjacentCharacters.Length > 0)
                         {
                             partNumbersSum += number;
@@ -74,71 +75,25 @@ namespace Advent_of_Code
                         // Is it a Gear?  If so, are there exactly 2 Part Numbers adjacent to it?
                         if (schematic[row][column] == '*')
                         {
-                            // Build a string that contains all Part Numbers adjacent to the Gear
+                            // Find all of the Part Numbers adjacent to the Gear
                             string adjacentCharacters = "";
 
-                            // Look for Part Numbers on the row above the Gear
-                            if (row > 0)
+                            for (int gearRow = Math.Max(0, row - 1); gearRow <= Math.Min(rows - 1, row + 1); gearRow++)
                             {
                                 int startColumn = Math.Max(0, column - 1);
                                 int endColumn = Math.Min(columns, column + 1);
 
-                                while (Char.IsDigit(schematic[row - 1][startColumn]) && startColumn > 0 && Char.IsDigit(schematic[row - 1][startColumn - 1]))
+                                while (Char.IsDigit(schematic[gearRow][startColumn]) && startColumn > 0 && Char.IsDigit(schematic[gearRow][startColumn - 1]))
                                 {
                                     startColumn--;
                                 }
 
-                                while (Char.IsDigit(schematic[row - 1][endColumn]) && endColumn + 1 < columns && char.IsDigit(schematic[row - 1][endColumn + 1]))
+                                while (Char.IsDigit(schematic[gearRow][endColumn]) && endColumn + 1 < columns && char.IsDigit(schematic[gearRow][endColumn + 1]))
                                 {
                                     endColumn++;
                                 }
 
-                                adjacentCharacters += schematic[row - 1].Substring(startColumn, endColumn - startColumn + 1);
-                            }
-
-                            // Look for a Part Number to the left of the Gear
-                            if (column > 0 && Char.IsDigit(schematic[row][column - 1]))
-                            {
-                                int startColumn = column - 1;
-
-                                while (startColumn > 0 && Char.IsDigit(schematic[row][startColumn - 1]))
-                                {
-                                    startColumn--;
-                                }
-
-                                adjacentCharacters += " " + schematic[row][startColumn..column];
-                            }
-
-                            // Look for a Part Number to the right of the Gear
-                            if (column + 1 < columns && Char.IsDigit(schematic[row][column + 1]))
-                            {
-                                int endColumn = column + 1;
-
-                                while (endColumn + 1 < columns && Char.IsDigit(schematic[row][endColumn + 1]))
-                                {
-                                    endColumn++;
-                                }
-
-                                adjacentCharacters += " " + schematic[row][(column + 1)..(endColumn + 1)];
-                            }
-
-                            // Look for Part Numbers on the row below the Gear
-                            if (row + 1 < rows)
-                            {
-                                int startColumn = Math.Max(0, column - 1);
-                                int endColumn = Math.Min(columns, column + 1);
-
-                                while (Char.IsDigit(schematic[row + 1][startColumn]) && startColumn > 0 && Char.IsDigit(schematic[row + 1][startColumn - 1]))
-                                {
-                                    startColumn--;
-                                }
-
-                                while (Char.IsDigit(schematic[row + 1][endColumn]) && endColumn + 1 < columns && char.IsDigit(schematic[row + 1][endColumn + 1]))
-                                {
-                                    endColumn++;
-                                }
-
-                                adjacentCharacters += " " + schematic[row + 1].Substring(startColumn, endColumn - startColumn + 1);
+                                adjacentCharacters += string.Concat(" ", schematic[gearRow].AsSpan(startColumn, endColumn - startColumn + 1));
                             }
 
                             var matchGroups = PartNumbersRegex().Match(adjacentCharacters).Groups;
