@@ -7,7 +7,7 @@ namespace Advent_of_Code
     {
 
         [GeneratedRegex("Game (?<GameID>\\d+): ((?<Cubes>\\d+ \\w+)(, |; )?)+")]
-        private static partial Regex GameLineRegex();
+        private static partial Regex Day_02_GameLineRegex();
 
         public string Day_02(StringReader input)
         {
@@ -18,7 +18,7 @@ namespace Advent_of_Code
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
-                var matchGroups = GameLineRegex().Match(line).Groups;
+                var matchGroups = Day_02_GameLineRegex().Match(line).Groups;
 
                 var allCubes = matchGroups["Cubes"].Captures
                     .Select(cubesCapture => new
