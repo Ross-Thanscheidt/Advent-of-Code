@@ -12,20 +12,24 @@ namespace Advent_of_Code
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            int pointSum = 0;
-            int scratchcardCount = 0;
+            int totalPoints = 0;
+            int totalScratchcards = 0;
 
             var cardsWon = new List<int>();
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
-                var winningMatchGroups = Day_04_CardNumbersRegex().Match(line.Split(":")[1].Split("|")[0]).Groups;
-                var winningNumbers = winningMatchGroups["Number"].Captures
+                var winningNumbers = Day_04_CardNumbersRegex()
+                    .Match(line.Split(":")[1].Split("|")[0])
+                    .Groups["Number"]
+                    .Captures
                     .Select(capture => int.Parse(capture.Value))
                     .ToList();
 
-                var possessedMatchGroups = Day_04_CardNumbersRegex().Match(line.Split(":")[1].Split("|")[1]).Groups;
-                var possessedNumbers = possessedMatchGroups["Number"].Captures
+                var possessedNumbers = Day_04_CardNumbersRegex()
+                    .Match(line.Split(":")[1].Split("|")[1])
+                    .Groups["Number"]
+                    .Captures
                     .Select(capture => int.Parse(capture.Value))
                     .ToList();
 
@@ -34,7 +38,8 @@ namespace Advent_of_Code
                         possessedNumbers,
                         winningNumber => winningNumber,
                         possessedNumber => possessedNumber,
-                        (winningNumber, possessedNumber) => possessedNumber);
+                        (winningNumber, _) => winningNumber
+                        );
 
                 int cardCopies = 1;
 
@@ -44,13 +49,13 @@ namespace Advent_of_Code
                     cardsWon.RemoveAt(0);
                 }
 
-                scratchcardCount += cardCopies;
+                totalScratchcards += cardCopies;
 
                 var numbersMatched = matchedNumbers.Count();
 
                 if (numbersMatched > 0)
                 {
-                    pointSum += 1 << (numbersMatched - 1);
+                    totalPoints += 1 << (numbersMatched - 1);
 
                     for (int cardIndex = 0; cardIndex < numbersMatched; cardIndex++)
                     {
@@ -68,8 +73,8 @@ namespace Advent_of_Code
 
             stopwatch.Stop();
 
-            return $"{pointSum:N0} points in total\r\n" +
-                   $"{scratchcardCount:N0} total scratchcards\r\n" +
+            return $"{totalPoints:N0} points in total\r\n" +
+                   $"{totalScratchcards:N0} total scratchcards\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
