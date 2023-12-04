@@ -8,7 +8,7 @@ namespace Advent_of_Code
          */
 
         const string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
-        const string INPUT_FILE_FORMAT = @"\Input{0}\Day_{1:00}{2}{3}.txt";
+        const string INPUT_FILE_FORMAT = @"\Input{0}{1}\Day_{2:00}{3}{4}.txt";
 
         public MainForm()
         {
@@ -37,6 +37,7 @@ namespace Advent_of_Code
                 String.Format(
                     INPUT_FILE_FORMAT,
                     UseTestInput.Checked ? ".Test" : "",
+                    answer ? @"\Answers" : "",
                     day,
                     part > 0 ? "_Part" + part : "",
                     answer ? "_Answer" : "");
