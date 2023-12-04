@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Advent_of_Code.Extensions.Year_2023.Day_04;
 
 namespace Advent_of_Code
 {
@@ -38,36 +39,19 @@ namespace Advent_of_Code
                         possessedNumbers,
                         winningNumber => winningNumber,
                         possessedNumber => possessedNumber,
-                        (winningNumber, _) => winningNumber
-                        );
+                        (winningNumber, _) => winningNumber)
+                    .ToList();
 
-                int cardCopies = 1;
-
-                if (cardsWon.Count > 0)
-                {
-                    cardCopies += cardsWon[0];
-                    cardsWon.RemoveAt(0);
-                }
-
+                int cardCopies = 1 + cardsWon.PopFirst(valueIfEmpty: 0);
                 totalScratchcards += cardCopies;
-
-                var numbersMatched = matchedNumbers.Count();
+                var numbersMatched = matchedNumbers.Count;
 
                 if (numbersMatched > 0)
                 {
                     totalPoints += 1 << (numbersMatched - 1);
 
-                    for (int cardIndex = 0; cardIndex < numbersMatched; cardIndex++)
-                    {
-                        if (cardIndex < cardsWon.Count)
-                        {
-                            cardsWon[cardIndex] += cardCopies;
-                        }
-                        else
-                        {
-                            cardsWon.Add(cardCopies);
-                        }
-                    }
+                    var cardIndex = 0;
+                    matchedNumbers.ForEach(_ => cardsWon.AddValue(cardIndex++, cardCopies));
                 }
             }
 
