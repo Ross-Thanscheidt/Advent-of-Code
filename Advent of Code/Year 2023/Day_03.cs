@@ -6,10 +6,10 @@ namespace Advent_of_Code
     public partial class Year_2023 : IYear
     {
         [GeneratedRegex(@"[.\d]")]
-        private static partial Regex NonSymbolsRegex();
+        private static partial Regex Day_03_NonSymbolsRegex();
 
         [GeneratedRegex("(.*?(?<PartNumber>\\d+).*?)*")]
-        private static partial Regex PartNumbersRegex();
+        private static partial Regex Day_03_PartNumbersRegex();
 
 
         public string Day_03(StringReader input)
@@ -62,7 +62,7 @@ namespace Advent_of_Code
                             (row + 1 < rows ? schematic[row + 1][Math.Max(0, firstDigitColumn - 1)..Math.Min(columns, column + 1)] : "");
 
                         // Remove everything but symbols
-                        adjacentCharacters = NonSymbolsRegex().Replace(adjacentCharacters, "");
+                        adjacentCharacters = Day_03_NonSymbolsRegex().Replace(adjacentCharacters, "");
 
                         // If there is an adjacent symbol, it is a Part Number
                         if (adjacentCharacters.Length > 0)
@@ -96,7 +96,7 @@ namespace Advent_of_Code
                                 adjacentCharacters += string.Concat(" ", schematic[gearRow].AsSpan(startColumn, endColumn - startColumn + 1));
                             }
 
-                            var matchGroups = PartNumbersRegex().Match(adjacentCharacters).Groups;
+                            var matchGroups = Day_03_PartNumbersRegex().Match(adjacentCharacters).Groups;
 
                             var partNumbers = matchGroups["PartNumber"].Captures
                                 .Select(partNumberCapture => int.Parse(partNumberCapture.Value))
