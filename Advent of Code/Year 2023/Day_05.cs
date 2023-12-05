@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Advent_of_Code.Year_2023_Day_05;
 
 namespace Advent_of_Code
 {
@@ -13,7 +14,7 @@ namespace Advent_of_Code
             List<long> seeds = [];
             string sourceName = "";
             string destinationName = "";
-            List<(string Source, string Destination, long DestRangeStart, long SourceRangeStart, long RangeLength)> map = [];
+            List<Map> maps = [];
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
@@ -34,7 +35,21 @@ namespace Advent_of_Code
                     else if (Char.IsDigit(line[0]))
                     {
                         var numbers = line.Split(" ").Select(n => long.Parse(n)).ToList();
-                        map.Add((sourceName, destinationName, numbers[0], numbers[1], numbers[2]));
+
+                        long destinationRangeStart = numbers[0];
+                        long sourceRangeStart = numbers[1];
+                        long rangeLength = numbers[2];
+
+                        maps.Add(
+                            new Map
+                            {
+                                Source = sourceName,
+                                Destination = destinationName,
+                                SourceFirst = sourceRangeStart,
+                                SourceLast = sourceRangeStart + rangeLength - 1,
+                                DestinationFirst = destinationRangeStart,
+                                DestinationLast = destinationRangeStart + rangeLength - 1
+                            });
                     }
                 }
             }
@@ -46,21 +61,21 @@ namespace Advent_of_Code
 
                 while (sourceName != "location")
                 {
-                    var range = map
+                    var range = maps
                         .Where(
                             m => m.Source == sourceName &&
-                            sourceNumber >= m.SourceRangeStart &&
-                            sourceNumber <= m.SourceRangeStart + m.RangeLength);
+                            sourceNumber >= m.SourceFirst &&
+                            sourceNumber <= m.SourceLast);
 
                     if (range.Any())
                     {
-                        var (_, Destination, DestRangeStart, SourceRangeStart, _) = range.First();
-                        sourceName = Destination;
-                        sourceNumber = DestRangeStart + sourceNumber - SourceRangeStart;
+                        Map map = range.First();
+                        sourceName = map.Destination;
+                        sourceNumber = map.DestinationFirst + sourceNumber - map.SourceFirst;
                     }
                     else
                     {
-                        sourceName = map.First(m => m.Source == sourceName).Destination;
+                        sourceName = maps.First(m => m.Source == sourceName).Destination;
                     }
                 }
 
