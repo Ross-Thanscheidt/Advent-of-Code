@@ -10,7 +10,6 @@ namespace Advent_of_Code
 
             long lowestLocationNumber = 0;
 
-            var debug = "";
             List<long> seeds = [];
             string sourceName = "";
             string destinationName = "";
@@ -55,7 +54,7 @@ namespace Advent_of_Code
 
                     if (range.Any())
                     {
-                        var (Source, Destination, DestRangeStart, SourceRangeStart, RangeLength) = range.First();
+                        var (_, Destination, DestRangeStart, SourceRangeStart, _) = range.First();
                         sourceName = Destination;
                         sourceNumber = DestRangeStart + sourceNumber - SourceRangeStart;
                     }
@@ -73,8 +72,7 @@ namespace Advent_of_Code
 
             stopwatch.Stop();
 
-            return $"{debug}\r\n" +
-                   $"{lowestLocationNumber:N0} is the lowest location number that corresponds to any of the initial seed numbers\r\n" +
+            return $"{lowestLocationNumber:N0} is the lowest location number that corresponds to any of the initial seed numbers\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
