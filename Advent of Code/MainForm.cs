@@ -7,7 +7,8 @@ namespace Advent_of_Code
          * Ross W. Thanscheidt
          */
 
-        const string INPUT_YEAR_FOLDER = @"..\..\..\Year {0}";
+        const string INPUT_YEAR_FOLDER = @"..\..\..\..\..\Advent-of-Code-Input\Advent of Code\Year {0}"; 
+        const string INPUT_YEAR_FOLDER_TEST = @"..\..\..\Year {0}";
         const string INPUT_FILE_FORMAT = @"\Input{0}{1}\Day_{2:00}{3}{4}.txt";
 
         public MainForm()
@@ -28,7 +29,7 @@ namespace Advent_of_Code
 
         private string Input_Year_Folder(decimal Year)
         {
-            return String.Format(Environment.ExpandEnvironmentVariables(INPUT_YEAR_FOLDER), Year);
+            return String.Format(Environment.ExpandEnvironmentVariables(UseTestInput.Checked ? INPUT_YEAR_FOLDER_TEST : INPUT_YEAR_FOLDER), Year);
         }
 
         private string Input_Filename(decimal year, decimal day, int part = 0, bool answer = false)
