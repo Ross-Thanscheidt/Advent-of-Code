@@ -16,7 +16,7 @@ namespace Advent_of_Code
                 if (includeDigitNames)
                 {
                     int digitNumber = 1;
-                    DIGIT_NAMES.ForEach(digitName => line = line.Replace(digitName, digitName + digitNumber++ + digitName));
+                    DIGIT_NAMES.ForEach(digitName => line = line.Replace(digitName, $"{digitName[0]}{digitNumber++}{digitName[^1]}"));
                 }
 
                 foreach (char character in line.Where(c => Char.IsDigit(c)))
@@ -26,7 +26,7 @@ namespace Advent_of_Code
                 }
             }
 
-            return int.Parse(firstDigit.ToString()) * 10 + int.Parse(lastDigit.ToString());
+            return (firstDigit - '0') * 10 + lastDigit - '0';
         }
 
         public string Day_01(StringReader input)
