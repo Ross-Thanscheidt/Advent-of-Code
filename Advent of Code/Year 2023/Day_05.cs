@@ -43,8 +43,8 @@ namespace Advent_of_Code
                         maps.Add(
                             new Map
                             {
-                                Source = sourceName,
-                                Destination = destinationName,
+                                SourceName = sourceName,
+                                DestinationName = destinationName,
                                 SourceFirst = sourceRangeStart,
                                 SourceLast = sourceRangeStart + rangeLength - 1,
                                 DestinationFirst = destinationRangeStart,
@@ -53,6 +53,15 @@ namespace Advent_of_Code
                     }
                 }
             }
+
+            //sourceName = "seed";
+            //while (maps.Where(m => m.SourceName != "seed").Any())
+            //{
+            //    var destinationName1 = maps.First(m => m.SourceName == "seed").DestinationName;
+            //    var destinationName2 = maps.First(m => m.SourceName == destinationName1).DestinationName;
+            //    var maps1 = maps.Where(m => m.SourceName == "seed");
+            //    var maps2 = maps.Where(m => m.SourceName == maps1.First().DestinationName);
+            //}
 
             foreach (var seed in seeds)
             {
@@ -63,19 +72,19 @@ namespace Advent_of_Code
                 {
                     var range = maps
                         .Where(
-                            m => m.Source == sourceName &&
+                            m => m.SourceName == sourceName &&
                             sourceNumber >= m.SourceFirst &&
                             sourceNumber <= m.SourceLast);
 
                     if (range.Any())
                     {
                         Map map = range.First();
-                        sourceName = map.Destination;
+                        sourceName = map.DestinationName;
                         sourceNumber = map.DestinationFirst + sourceNumber - map.SourceFirst;
                     }
                     else
                     {
-                        sourceName = maps.First(m => m.Source == sourceName).Destination;
+                        sourceName = maps.First(m => m.SourceName == sourceName).DestinationName;
                     }
                 }
 

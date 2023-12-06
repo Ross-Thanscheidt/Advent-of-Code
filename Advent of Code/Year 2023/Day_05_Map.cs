@@ -2,8 +2,8 @@
 {
     public struct Map
     {
-        public string Source;
-        public string Destination;
+        public string SourceName;
+        public string DestinationName;
         public long   SourceFirst;
         public long   SourceLast;
         public long   DestinationFirst;
