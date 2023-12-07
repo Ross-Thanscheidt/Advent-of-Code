@@ -11,6 +11,8 @@ namespace Advent_of_Code
 
             long lowestLocationNumber = 0;
 
+            string debug = "";
+
             List<long> seeds = [];
             string sourceName = "";
             string destinationName = "";
@@ -48,19 +50,127 @@ namespace Advent_of_Code
                                 SourceFirst = sourceRangeStart,
                                 SourceLast = sourceRangeStart + rangeLength - 1,
                                 DestinationFirst = destinationRangeStart,
-                                DestinationLast = destinationRangeStart + rangeLength - 1
+                                DestinationLast = destinationRangeStart + rangeLength - 1,
+                                Active = true
                             });
                     }
                 }
             }
 
             //sourceName = "seed";
-            //while (maps.Where(m => m.SourceName != "seed").Any())
+            //while (maps.Any(m => m.SourceName != "seed"))
             //{
-            //    var destinationName1 = maps.First(m => m.SourceName == "seed").DestinationName;
-            //    var destinationName2 = maps.First(m => m.SourceName == destinationName1).DestinationName;
-            //    var maps1 = maps.Where(m => m.SourceName == "seed");
-            //    var maps2 = maps.Where(m => m.SourceName == maps1.First().DestinationName);
+            //    var seedMapDestinationName = maps.First(m => m.SourceName == "seed").DestinationName;
+            //    var nextMapDestinationName = maps.First(m => m.SourceName == seedMapDestinationName).DestinationName;
+
+            //    while (maps.Any(m => m.SourceName == "seed"))
+            //    {
+            //        var seedMap = maps.First(m => m.SourceName == "seed");
+
+            //        var nextMap = maps.Find(m =>
+            //            m.SourceName == seedMap.DestinationName &&
+            //            seedMap.DestinationFirst <= m.SourceLast &&
+            //            seedMap.DestinationLast >= m.SourceFirst &&
+            //            m.Active);
+
+            //        if (nextMap.SourceName == seedMap.DestinationName)
+            //        {
+            //            // Find seedMap range in nextMap
+            //            var commonRangeFirst = Math.Max(seedMap.DestinationFirst, nextMap.SourceFirst);
+            //            var commonRangeLast = Math.Min(seedMap.DestinationLast, nextMap.SourceLast);
+
+            //            debug += $"Looking at {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
+            //            debug += $"Looking at {nextMap.SourceName}-to-{nextMap.DestinationName} map: ({nextMap.SourceFirst},{nextMap.SourceLast}) => ({nextMap.DestinationFirst},{nextMap.DestinationLast})\r\n";
+            //            debug += $"Common Range is ({commonRangeFirst},{commonRangeLast})\r\n";
+
+            //            // Add range nextMapping
+            //            var map = new Map
+            //            {
+            //                SourceName = nextMap.SourceName,
+            //                DestinationName = nextMap.DestinationName,
+            //                SourceFirst = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst),
+            //                SourceLast = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst),
+            //                DestinationFirst = nextMap.DestinationFirst + (commonRangeFirst - nextMap.SourceFirst),
+            //                DestinationLast = nextMap.DestinationFirst + (commonRangeLast - nextMap.SourceFirst),
+            //                Active = false
+            //            };
+            //            debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
+            //            maps.Add(map);
+
+            //            // Add unmatched ranges to nextMap
+            //            if (seedMap.DestinationFirst < commonRangeFirst)
+            //            {
+            //                map = new Map
+            //                {
+            //                    SourceName = seedMap.SourceName,
+            //                    DestinationName = seedMap.DestinationName,
+            //                    SourceFirst = seedMap.SourceFirst,
+            //                    SourceLast = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst) - 1,
+            //                    DestinationFirst = seedMap.DestinationFirst,
+            //                    DestinationLast = commonRangeFirst - 1,
+            //                    Active = false
+            //                };
+            //                debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
+            //                maps.Add(map);
+            //            }
+
+            //            if (seedMap.DestinationLast > commonRangeLast)
+            //            {
+            //                map = new Map
+            //                {
+            //                    SourceName = seedMap.SourceName,
+            //                    DestinationName = seedMap.DestinationName,
+            //                    SourceFirst = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst) + 1,
+            //                    SourceLast = seedMap.SourceLast,
+            //                    DestinationFirst = commonRangeLast + 1,
+            //                    DestinationLast = seedMap.DestinationLast,
+            //                    Active = false
+            //                };
+            //                debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
+            //                maps.Add(map);
+            //            }
+
+            //            debug += $"Remove {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
+            //            maps.Remove(seedMap);
+            //        }
+            //        else
+            //        {
+            //            var map = new Map
+            //            {
+            //                SourceName = seedMapDestinationName,
+            //                DestinationName = nextMapDestinationName,
+            //                SourceFirst = seedMap.SourceFirst,
+            //                SourceLast = seedMap.SourceLast,
+            //                DestinationFirst = seedMap.DestinationFirst,
+            //                DestinationLast = seedMap.DestinationLast,
+            //                Active = false
+            //            };
+
+            //            debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
+            //            maps.Add(map);
+
+            //            debug += $"Remove {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
+            //            maps.Remove(seedMap);
+            //        }
+            //    }
+
+            //    while (maps.Any(m => m.SourceName == seedMapDestinationName))
+            //    {
+            //        var map = maps.First(m => m.SourceName == seedMapDestinationName);
+
+            //        maps.Add(new Map
+            //        {
+            //            SourceName = "seed",
+            //            DestinationName = map.DestinationName,
+            //            SourceFirst = map.SourceFirst,
+            //            SourceLast = map.SourceLast,
+            //            DestinationFirst = map.DestinationFirst,
+            //            DestinationLast = map.DestinationLast,
+            //            Active = true
+            //        });
+
+            //        maps.Remove(map);
+            //    }
             //}
 
             foreach (var seed in seeds)

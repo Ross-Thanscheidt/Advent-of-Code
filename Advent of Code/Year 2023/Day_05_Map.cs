@@ -8,5 +8,6 @@
         public long   SourceLast;
         public long   DestinationFirst;
         public long   DestinationLast;
+        public bool   Active;
     }
 }
