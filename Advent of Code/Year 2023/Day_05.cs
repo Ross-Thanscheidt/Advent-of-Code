@@ -9,15 +9,16 @@ namespace Advent_of_Code
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            long lowestLocationNumber = 0;
-
-            string debug = "";
+            long lowestLocationNumberSeed = 0;
+            long lowestLocationNumberRange = 0;
 
             List<long> seeds = [];
-            string sourceName = "";
-            string destinationName = "";
             List<Map> maps = [];
 
+            string sourceName = "";
+            string destinationName = "";
+
+            // Load the puzzle input into seeds and maps
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
                 if (line.Length > 0)
@@ -57,156 +58,255 @@ namespace Advent_of_Code
                 }
             }
 
-            //sourceName = "seed";
-            //while (maps.Any(m => m.SourceName != "seed"))
-            //{
-            //    var seedMapDestinationName = maps.First(m => m.SourceName == "seed").DestinationName;
-            //    var nextMapDestinationName = maps.First(m => m.SourceName == seedMapDestinationName).DestinationName;
-
-            //    while (maps.Any(m => m.SourceName == "seed"))
-            //    {
-            //        var seedMap = maps.First(m => m.SourceName == "seed");
-
-            //        var nextMap = maps.Find(m =>
-            //            m.SourceName == seedMap.DestinationName &&
-            //            seedMap.DestinationFirst <= m.SourceLast &&
-            //            seedMap.DestinationLast >= m.SourceFirst &&
-            //            m.Active);
-
-            //        if (nextMap.SourceName == seedMap.DestinationName)
-            //        {
-            //            // Find seedMap range in nextMap
-            //            var commonRangeFirst = Math.Max(seedMap.DestinationFirst, nextMap.SourceFirst);
-            //            var commonRangeLast = Math.Min(seedMap.DestinationLast, nextMap.SourceLast);
-
-            //            debug += $"Looking at {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
-            //            debug += $"Looking at {nextMap.SourceName}-to-{nextMap.DestinationName} map: ({nextMap.SourceFirst},{nextMap.SourceLast}) => ({nextMap.DestinationFirst},{nextMap.DestinationLast})\r\n";
-            //            debug += $"Common Range is ({commonRangeFirst},{commonRangeLast})\r\n";
-
-            //            // Add range nextMapping
-            //            var map = new Map
-            //            {
-            //                SourceName = nextMap.SourceName,
-            //                DestinationName = nextMap.DestinationName,
-            //                SourceFirst = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst),
-            //                SourceLast = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst),
-            //                DestinationFirst = nextMap.DestinationFirst + (commonRangeFirst - nextMap.SourceFirst),
-            //                DestinationLast = nextMap.DestinationFirst + (commonRangeLast - nextMap.SourceFirst),
-            //                Active = false
-            //            };
-            //            debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
-            //            maps.Add(map);
-
-            //            // Add unmatched ranges to nextMap
-            //            if (seedMap.DestinationFirst < commonRangeFirst)
-            //            {
-            //                map = new Map
-            //                {
-            //                    SourceName = seedMap.SourceName,
-            //                    DestinationName = seedMap.DestinationName,
-            //                    SourceFirst = seedMap.SourceFirst,
-            //                    SourceLast = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst) - 1,
-            //                    DestinationFirst = seedMap.DestinationFirst,
-            //                    DestinationLast = commonRangeFirst - 1,
-            //                    Active = false
-            //                };
-            //                debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
-            //                maps.Add(map);
-            //            }
-
-            //            if (seedMap.DestinationLast > commonRangeLast)
-            //            {
-            //                map = new Map
-            //                {
-            //                    SourceName = seedMap.SourceName,
-            //                    DestinationName = seedMap.DestinationName,
-            //                    SourceFirst = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst) + 1,
-            //                    SourceLast = seedMap.SourceLast,
-            //                    DestinationFirst = commonRangeLast + 1,
-            //                    DestinationLast = seedMap.DestinationLast,
-            //                    Active = false
-            //                };
-            //                debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
-            //                maps.Add(map);
-            //            }
-
-            //            debug += $"Remove {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
-            //            maps.Remove(seedMap);
-            //        }
-            //        else
-            //        {
-            //            var map = new Map
-            //            {
-            //                SourceName = seedMapDestinationName,
-            //                DestinationName = nextMapDestinationName,
-            //                SourceFirst = seedMap.SourceFirst,
-            //                SourceLast = seedMap.SourceLast,
-            //                DestinationFirst = seedMap.DestinationFirst,
-            //                DestinationLast = seedMap.DestinationLast,
-            //                Active = false
-            //            };
-
-            //            debug += $"Add {map.SourceName}-to-{map.DestinationName} map: ({map.SourceFirst},{map.SourceLast}) => ({map.DestinationFirst},{map.DestinationLast})\r\n";
-            //            maps.Add(map);
-
-            //            debug += $"Remove {seedMap.SourceName}-to-{seedMap.DestinationName} map: ({seedMap.SourceFirst},{seedMap.SourceLast}) => ({seedMap.DestinationFirst},{seedMap.DestinationLast})\r\n";
-            //            maps.Remove(seedMap);
-            //        }
-            //    }
-
-            //    while (maps.Any(m => m.SourceName == seedMapDestinationName))
-            //    {
-            //        var map = maps.First(m => m.SourceName == seedMapDestinationName);
-
-            //        maps.Add(new Map
-            //        {
-            //            SourceName = "seed",
-            //            DestinationName = map.DestinationName,
-            //            SourceFirst = map.SourceFirst,
-            //            SourceLast = map.SourceLast,
-            //            DestinationFirst = map.DestinationFirst,
-            //            DestinationLast = map.DestinationLast,
-            //            Active = true
-            //        });
-
-            //        maps.Remove(map);
-            //    }
-            //}
-
-            foreach (var seed in seeds)
+            // Consolidate maps into one seed-to-location map
+            while (maps.Any(m => m.SourceName != "seed"))
             {
-                sourceName = "seed";
-                var sourceNumber = seed;
+                var seedMapDestinationName = maps.First(m => m.SourceName == "seed").DestinationName;
+                var nextMapDestinationName = maps.First(m => m.SourceName == seedMapDestinationName).DestinationName;
 
-                while (sourceName != "location")
+                // Merge all seed mappings into the next mapping
+                while (maps.Any(m => m.SourceName == "seed"))
                 {
-                    var range = maps
-                        .Where(
-                            m => m.SourceName == sourceName &&
-                            sourceNumber >= m.SourceFirst &&
-                            sourceNumber <= m.SourceLast);
+                    var seedMap = maps.First(m => m.SourceName == "seed");
 
-                    if (range.Any())
+                    var nextMap = maps.Find(m =>
+                        m.SourceName == seedMap.DestinationName &&
+                        seedMap.DestinationFirst <= m.SourceLast &&
+                        seedMap.DestinationLast >= m.SourceFirst &&
+                        m.Active);
+
+                    // These names will match if a nextMap range was found
+                    if (nextMap.SourceName == seedMap.DestinationName)
                     {
-                        Map map = range.First();
-                        sourceName = map.DestinationName;
-                        sourceNumber = map.DestinationFirst + sourceNumber - map.SourceFirst;
+                        // Determine range that is in both seedMap and nextMap
+                        var commonRangeFirst = Math.Max(seedMap.DestinationFirst, nextMap.SourceFirst);
+                        var commonRangeLast = Math.Min(seedMap.DestinationLast, nextMap.SourceLast);
+
+                        // Add range to next mapping (same mapping as nextMap)
+                        var map = new Map
+                        {
+                            SourceName = nextMap.SourceName,
+                            DestinationName = nextMap.DestinationName,
+                            SourceFirst = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst),
+                            SourceLast = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst),
+                            DestinationFirst = nextMap.DestinationFirst + (commonRangeFirst - nextMap.SourceFirst),
+                            DestinationLast = nextMap.DestinationFirst + (commonRangeLast - nextMap.SourceFirst),
+                            Active = false
+                        };
+
+                        maps.Add(map);
+
+                        // Add unmatched range before commonRange to next mapping
+                        if (seedMap.DestinationFirst < commonRangeFirst)
+                        {
+                            map = new Map
+                            {
+                                SourceName = seedMap.SourceName,
+                                DestinationName = seedMap.DestinationName,
+                                SourceFirst = seedMap.SourceFirst,
+                                SourceLast = seedMap.SourceFirst + (commonRangeFirst - seedMap.DestinationFirst) - 1,
+                                DestinationFirst = seedMap.DestinationFirst,
+                                DestinationLast = commonRangeFirst - 1,
+                                Active = false
+                            };
+
+                            maps.Add(map);
+                        }
+
+                        // Add unmatched range after commonRange to next mapping
+                        if (seedMap.DestinationLast > commonRangeLast)
+                        {
+                            map = new Map
+                            {
+                                SourceName = seedMap.SourceName,
+                                DestinationName = seedMap.DestinationName,
+                                SourceFirst = seedMap.SourceFirst + (commonRangeLast - seedMap.DestinationFirst) + 1,
+                                SourceLast = seedMap.SourceLast,
+                                DestinationFirst = commonRangeLast + 1,
+                                DestinationLast = seedMap.DestinationLast,
+                                Active = false
+                            };
+
+                            maps.Add(map);
+                        }
                     }
                     else
                     {
-                        sourceName = maps.First(m => m.SourceName == sourceName).DestinationName;
+                        // Add this mapping to the next mapping
+                        var map = new Map
+                        {
+                            SourceName = seedMapDestinationName,
+                            DestinationName = nextMapDestinationName,
+                            SourceFirst = seedMap.SourceFirst,
+                            SourceLast = seedMap.SourceLast,
+                            DestinationFirst = seedMap.DestinationFirst,
+                            DestinationLast = seedMap.DestinationLast,
+                            Active = false
+                        };
+
+                        maps.Add(map);
+                    }
+
+                    // This mapping has been merged into the next mapping and can be removed
+                    maps.Remove(seedMap);
+                }
+
+                // The new mappings added to the next mapping are indicated by Active being false
+                var newMaps = maps
+                    .Where(m =>
+                        m.SourceName == seedMapDestinationName &&
+                        m.DestinationName == nextMapDestinationName &&
+                        !m.Active)
+                    .ToList();
+
+                // Remove old Source ranges from the next mapping if new mappings with the same Source ranges were added
+                foreach (var newMap in newMaps)
+                {
+                    // Deal with all old mappings whose Source range intersects with the new mapping
+                    while (maps.Any(m =>
+                        m.SourceName == newMap.SourceName &&
+                        m.DestinationName == newMap.DestinationName &&
+                        m.Active &&
+                        newMap.SourceFirst <= m.SourceLast &&
+                        newMap.SourceLast >= m.SourceFirst))
+                    {
+                        var oldMap = maps.First(m =>
+                            m.SourceName == newMap.SourceName &&
+                            m.DestinationName == newMap.DestinationName &&
+                            m.Active &&
+                            newMap.SourceFirst <= m.SourceLast &&
+                            newMap.SourceLast >= m.SourceFirst);
+
+                        var commonFirst = Math.Max(oldMap.SourceFirst, newMap.SourceFirst);
+                        var commonLast = Math.Min(oldMap.SourceLast, newMap.SourceLast);
+
+                        if (commonFirst == oldMap.SourceFirst && commonLast == oldMap.SourceLast)
+                        {
+                            maps.Remove(oldMap);
+                        }
+                        else {
+                            var updateMap = new Map
+                            {
+                                SourceName = oldMap.SourceName,
+                                DestinationName = oldMap.DestinationName,
+                                SourceFirst = oldMap.SourceFirst,
+                                SourceLast = oldMap.SourceLast,
+                                DestinationFirst = oldMap.DestinationFirst,
+                                DestinationLast = oldMap.DestinationLast,
+                                Active = oldMap.Active
+                            };
+
+                            if (commonFirst == oldMap.SourceFirst)
+                            {
+                                // Remove matching beginning of the Source range
+                                updateMap.SourceFirst = commonLast + 1;
+                                updateMap.DestinationFirst += (commonLast + 1 - oldMap.SourceFirst);
+                            }
+                            else if (commonLast == oldMap.SourceLast)
+                            {
+                                // Remove matching end of the Source range
+                                updateMap.SourceLast = commonFirst - 1;
+                                updateMap.DestinationLast = oldMap.DestinationFirst + (commonFirst - 1 - oldMap.SourceFirst);
+                            }
+                            else
+                            {
+                                // Add mapping of unmatched range at the end of the Source range
+                                var addMap = new Map
+                                {
+                                    SourceName = oldMap.SourceName,
+                                    DestinationName = oldMap.DestinationName,
+                                    SourceFirst = commonLast + 1,
+                                    SourceLast = oldMap.SourceLast,
+                                    DestinationFirst = oldMap.DestinationFirst + (commonLast + 1 - oldMap.SourceFirst),
+                                    DestinationLast = oldMap.DestinationLast,
+                                    Active = oldMap.Active
+                                };
+
+                                maps.Add(addMap);
+
+                                // Add mapping of unmatched range at the beginning of the Source range
+                                updateMap.SourceLast = commonFirst - 1;
+                                updateMap.DestinationLast = oldMap.DestinationFirst + (commonLast - 1 - oldMap.SourceFirst);
+                            }
+
+                            // Update oldMap by removing it and adding updateMap
+                            maps.Remove(oldMap);
+                            maps.Add(updateMap);
+                        }
                     }
                 }
 
-                if (lowestLocationNumber == 0 || sourceNumber < lowestLocationNumber)
+                // Rename SourceName of the next mapping to "seed"
+                while (maps.Any(m => m.SourceName == seedMapDestinationName))
                 {
-                    lowestLocationNumber = sourceNumber;
+                    var oldMap = maps.First(m => m.SourceName == seedMapDestinationName);
+
+                    var newMap = new Map
+                    {
+                        SourceName = "seed",
+                        DestinationName = oldMap.DestinationName,
+                        SourceFirst = oldMap.SourceFirst,
+                        SourceLast = oldMap.SourceLast,
+                        DestinationFirst = oldMap.DestinationFirst,
+                        DestinationLast = oldMap.DestinationLast,
+                        Active = oldMap.Active
+                    };
+
+                    maps.Add(newMap);
+                    maps.Remove(oldMap);
+                }
+            }
+
+            // Use the merged maps for Part One
+            foreach (var seed in seeds)
+            {
+                var sourceNumber = seed;
+
+                var range = maps
+                    .Where(m =>
+                        sourceNumber >= m.SourceFirst &&
+                        sourceNumber <= m.SourceLast);
+
+                if (range.Any())
+                {
+                    sourceNumber = range.Select(m => m.DestinationFirst + sourceNumber - m.SourceFirst).First();
+                }
+
+                if (lowestLocationNumberSeed == 0 || sourceNumber < lowestLocationNumberSeed)
+                {
+                    lowestLocationNumberSeed = sourceNumber;
+                }
+            }
+
+            // Use the merged maps for Part Two
+            for (var index = 0; index + 1 < seeds.Count; index += 2)
+            {
+                var seedFirst = seeds[index];
+                var seedLast = seedFirst + seeds[index + 1] - 1;
+
+                var sourceNumber = seedFirst;
+
+                var range = maps
+                    .Where(m =>
+                        seedFirst <= m.SourceLast &&
+                        seedLast >= m.SourceFirst);
+
+                if (range.Any())
+                {
+                    var lowestTranslatedSourceNumber = range.Min(m => m.DestinationFirst + Math.Max(seedFirst, m.SourceFirst) - m.SourceFirst);
+                    sourceNumber = Math.Min(sourceNumber, lowestTranslatedSourceNumber);
+                }
+
+                if (lowestLocationNumberRange == 0 || sourceNumber < lowestLocationNumberRange)
+                {
+                    lowestLocationNumberRange = sourceNumber;
                 }
             }
 
             stopwatch.Stop();
 
-            return $"{lowestLocationNumber:N0} is the lowest location number that corresponds to any of the initial seed numbers\r\n" +
+            return $"{lowestLocationNumberSeed:N0} is the lowest location number that corresponds to any of the initial seed numbers\r\n" +
+                   $"{lowestLocationNumberRange:N0} is the lowest location number that corresponds to any of the initial seed numbers\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
