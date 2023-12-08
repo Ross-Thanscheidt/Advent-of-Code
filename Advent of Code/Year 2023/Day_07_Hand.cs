@@ -5,6 +5,8 @@
         public string Cards;
         public int Bid;
         public int HandType;
+        public int HandTypeWild;
         public string ComparableCards;
+        public string ComparableCardsWild;
     }
 }
