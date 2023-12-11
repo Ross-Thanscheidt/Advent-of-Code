@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Advent_of_Code.Year_2023_Day_08;
 
 namespace Advent_of_Code
 {
@@ -12,11 +13,11 @@ namespace Advent_of_Code
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            int steps = 0;
-            int stepsMultiple = 0;
+            long steps = 0;
+            long stepsMultiple = 0;
 
             string instructions = "";
-            Dictionary<string, ValueTuple<string, string>> nodes = [];
+            Dictionary<string, Node> nodes = [];
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
@@ -27,7 +28,24 @@ namespace Advent_of_Code
                     var nodeKey = matchGroups["NodeKey"].Captures[0].Value;
                     var nodeLeft = matchGroups["NodeLeft"].Captures[0].Value;
                     var nodeRight = matchGroups["NodeRight"].Captures[0].Value;
-                    nodes.Add(nodeKey, (nodeLeft, nodeRight));
+
+                    if (!nodes.ContainsKey(nodeKey))
+                    {
+                        nodes.Add(nodeKey, new Node(nodeKey));
+                    }
+
+                    if (!nodes.ContainsKey(nodeLeft))
+                    {
+                        nodes.Add(nodeLeft, new Node(nodeLeft));
+                    }
+
+                    if (!nodes.ContainsKey(nodeRight))
+                    {
+                        nodes.Add(nodeRight, new Node(nodeRight));
+                    }
+
+                    nodes[nodeKey].LeftNode = nodes[nodeLeft];
+                    nodes[nodeKey].RightNode = nodes[nodeRight];
                 }
                 else if (line.Length > 0)
                 {
@@ -35,10 +53,10 @@ namespace Advent_of_Code
                 }
             }
 
-            var currentKey = "AAA";
+            var currentNode = nodes["AAA"];
             var instructionIndex = 0;
 
-            while (currentKey != "ZZZ")
+            while (currentNode.Key != "ZZZ")
             {
                 var instruction = instructions[instructionIndex++];
 
@@ -47,41 +65,37 @@ namespace Advent_of_Code
                     instructionIndex = 0;
                 }
 
-                currentKey = instruction switch
-                    {
-                        'L' => nodes[currentKey].Item1,
-                        'R' => nodes[currentKey].Item2
-                    };
+                currentNode = instruction == 'L' ? currentNode.LeftNode : currentNode.RightNode;
 
                 steps++;
             }
 
-            var currentKeys = nodes.Where(n => n.Key.EndsWith("A")).Select(n => n.Key).ToList();
-            instructionIndex = 0;
+            //var currentNodes = nodes.Where(kv => kv.Key.EndsWith('A')).Select(kv => kv.Value).ToList();
+            //instructionIndex = 0;
 
-            while (!currentKeys.All(k => k.EndsWith('Z')))
-            {
-                var instruction = instructions[instructionIndex++];
+            //while (!currentNodes.All(n => n.Key.EndsWith('Z')))
+            //{
+            //    var instruction = instructions[instructionIndex++];
 
-                if (instructionIndex >= instructions.Length)
-                {
-                    instructionIndex = 0;
-                }
+            //    if (instructionIndex >= instructions.Length)
+            //    {
+            //        instructionIndex = 0;
+            //    }
 
-                for (var currentKeyIndex = 0; currentKeyIndex < currentKeys.Count; currentKeyIndex++)
-                {
-                    currentKeys[currentKeyIndex] = instruction == 'L'
-                        ? nodes[currentKeys[currentKeyIndex]].Item1
-                        : nodes[currentKeys[currentKeyIndex]].Item2;
-                }
+            //    for (var currentNodesIndex = 0; currentNodesIndex < currentNodes.Count; currentNodesIndex++)
+            //    {
+            //        currentNodes[currentNodesIndex] = instruction == 'L'
+            //            ? currentNodes[currentNodesIndex].LeftNode
+            //            : currentNodes[currentNodesIndex].RightNode;
+            //    }
 
-                stepsMultiple++;
-            }
+            //    stepsMultiple++;
+            //}
 
             stopwatch.Stop();
 
             return $"{steps:N0} steps are required to reach ZZZ from AAA\r\n" +
-                   $"{stepsMultiple:N0} steps are required to get to all nodes ending with Z\r\n" +
+                   //$"{stepsMultiple:N0} steps are required to get to all nodes ending with Z\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
