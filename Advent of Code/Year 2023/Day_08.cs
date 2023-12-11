@@ -92,6 +92,68 @@ namespace Advent_of_Code
             //    stepsMultiple++;
             //}
 
+            //var currentNodes = nodes.Where(kv => kv.Key.EndsWith('A')).Select(kv => kv.Value).ToList();
+            //List<long> initialSteps = [];
+            //List<long> cycleSteps = [];
+
+            //instructionIndex = 0;
+
+            //for (var currentNodesIndex = 0; currentNodesIndex < currentNodes.Count; currentNodesIndex++)
+            //{
+            //    var node = currentNodes[currentNodesIndex];
+            //    string endKey = "";
+
+            //    Debug.Write($"{node.Key}");
+
+            //    initialSteps.Add(0);
+            //    cycleSteps.Add(0);
+
+            //    instructionIndex = 0;
+
+            //    while (endKey.Length == 0 || node.Key != endKey)
+            //    {
+            //        if (node.Key.EndsWith('Z'))
+            //        {
+            //            endKey = node.Key;
+            //        }
+
+            //        var instruction = instructions[instructionIndex++];
+
+            //        if (instructionIndex >= instructions.Length)
+            //        {
+            //            instructionIndex = 0;
+            //        }
+
+            //        node = instruction == 'L' ? node.LeftNode : node.RightNode;
+
+            //        if (endKey.Length == 0)
+            //        {
+            //            initialSteps[currentNodesIndex]++;
+            //        }
+            //        else
+            //        {
+            //            cycleSteps[currentNodesIndex]++;
+            //        }
+            //    }
+            //    Debug.WriteLine($" to {node.Key} initially takes {initialSteps[currentNodesIndex]:N0} steps and then every {cycleSteps[currentNodesIndex]:N0} steps");
+            //}
+
+            //var stepsTracker = cycleSteps.ToList();
+
+            //while (stepsTracker.Distinct().Count() > 1)
+            //{
+            //    long lowestSteps = stepsTracker.Min();
+            //    for (int stepsTrackerIndex = 0;  stepsTrackerIndex < stepsTracker.Count; stepsTrackerIndex++)
+            //    {
+            //        if (stepsTracker[stepsTrackerIndex] == lowestSteps)
+            //        {
+            //            stepsTracker[stepsTrackerIndex] += cycleSteps[stepsTrackerIndex];
+            //        }
+            //    }
+            //}
+
+            //stepsMultiple = stepsTracker[0];
+
             stopwatch.Stop();
 
             return $"{steps:N0} steps are required to reach ZZZ from AAA\r\n" +
