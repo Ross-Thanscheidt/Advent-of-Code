@@ -53,6 +53,8 @@ namespace Advent_of_Code
                 }
             }
 
+            // Part One - Count steps from AAA to ZZZ
+
             var currentNode = nodes["AAA"];
             var instructionIndex = 0;
 
@@ -70,94 +72,92 @@ namespace Advent_of_Code
                 steps++;
             }
 
-            //var currentNodes = nodes.Where(kv => kv.Key.EndsWith('A')).Select(kv => kv.Value).ToList();
-            //instructionIndex = 0;
+            // Part Two - Count steps from each node ending with A to all nodes ending with Z
 
-            //while (!currentNodes.All(n => n.Key.EndsWith('Z')))
-            //{
-            //    var instruction = instructions[instructionIndex++];
+            // Create list of starting nodes for each A-to-Z path
+            var currentNodeForPath = nodes.Where(kv => kv.Key.EndsWith('A')).Select(kv => kv.Value).ToList();
 
-            //    if (instructionIndex >= instructions.Length)
-            //    {
-            //        instructionIndex = 0;
-            //    }
+            // Determine the number of steps for each A-to-Z path
+            List<long> cycleSteps = [];
 
-            //    for (var currentNodesIndex = 0; currentNodesIndex < currentNodes.Count; currentNodesIndex++)
-            //    {
-            //        currentNodes[currentNodesIndex] = instruction == 'L'
-            //            ? currentNodes[currentNodesIndex].LeftNode
-            //            : currentNodes[currentNodesIndex].RightNode;
-            //    }
+            instructionIndex = 0;
 
-            //    stepsMultiple++;
-            //}
+            for (var pathIndex = 0; pathIndex < currentNodeForPath.Count; pathIndex++)
+            {
+                var node = currentNodeForPath[pathIndex];
 
-            //var currentNodes = nodes.Where(kv => kv.Key.EndsWith('A')).Select(kv => kv.Value).ToList();
-            //List<long> initialSteps = [];
-            //List<long> cycleSteps = [];
+                cycleSteps.Add(0);
+                instructionIndex = 0;
 
-            //instructionIndex = 0;
+                while (!node.Key.EndsWith('Z'))
+                {
+                    var instruction = instructions[instructionIndex++];
 
-            //for (var currentNodesIndex = 0; currentNodesIndex < currentNodes.Count; currentNodesIndex++)
-            //{
-            //    var node = currentNodes[currentNodesIndex];
-            //    string endKey = "";
+                    if (instructionIndex >= instructions.Length)
+                    {
+                        instructionIndex = 0;
+                    }
 
-            //    Debug.Write($"{node.Key}");
+                    node = instruction == 'L' ? node.LeftNode : node.RightNode;
 
-            //    initialSteps.Add(0);
-            //    cycleSteps.Add(0);
+                    cycleSteps[pathIndex]++;
+                }
+            }
 
-            //    instructionIndex = 0;
+            // Find the largest number of cycleSteps for any path
+            var maxCycleSteps = cycleSteps.Max();
 
-            //    while (endKey.Length == 0 || node.Key != endKey)
-            //    {
-            //        if (node.Key.EndsWith('Z'))
-            //        {
-            //            endKey = node.Key;
-            //        }
+            // Get list of prime numbers from 2 to sqrt(maxCycleSteps)
+            var primeNumbers =
+                Enumerable.Range(2, (int)Math.Sqrt(maxCycleSteps) - 1)
+                .AsParallel()
+                .Where(candidate => Enumerable.Range(2, (int)Math.Sqrt(candidate)).All(divisor => candidate % divisor != 0))
+                .Select(primeNumber => (long)primeNumber)
+                .ToList();
 
-            //        var instruction = instructions[instructionIndex++];
+            // This will be used to determine the Least Common Multiple of the cycleSteps for all paths
+            List<long> commonFactorsAllPaths = [];
 
-            //        if (instructionIndex >= instructions.Length)
-            //        {
-            //            instructionIndex = 0;
-            //        }
+            // For each A-to-Z path
+            foreach (var cycleStepsForPath in cycleSteps)
+            {
+                // Break cycleStepsForPath down into a list of prime number factors
+                List<long> primeFactorsForPath = [];
 
-            //        node = instruction == 'L' ? node.LeftNode : node.RightNode;
+                for (long remainingFactors = cycleStepsForPath; remainingFactors != 1; )
+                {
+                    var primeFactor = primeNumbers.Find(primeNumber => remainingFactors % primeNumber == 0);
 
-            //        if (endKey.Length == 0)
-            //        {
-            //            initialSteps[currentNodesIndex]++;
-            //        }
-            //        else
-            //        {
-            //            cycleSteps[currentNodesIndex]++;
-            //        }
-            //    }
-            //    Debug.WriteLine($" to {node.Key} initially takes {initialSteps[currentNodesIndex]:N0} steps and then every {cycleSteps[currentNodesIndex]:N0} steps");
-            //}
+                    if (primeFactor == 0)
+                    {
+                        primeFactor = remainingFactors;
+                    }
 
-            //var stepsTracker = cycleSteps.ToList();
+                    primeFactorsForPath.Add(primeFactor);
 
-            //while (stepsTracker.Distinct().Count() > 1)
-            //{
-            //    long lowestSteps = stepsTracker.Min();
-            //    for (int stepsTrackerIndex = 0;  stepsTrackerIndex < stepsTracker.Count; stepsTrackerIndex++)
-            //    {
-            //        if (stepsTracker[stepsTrackerIndex] == lowestSteps)
-            //        {
-            //            stepsTracker[stepsTrackerIndex] += cycleSteps[stepsTrackerIndex];
-            //        }
-            //    }
-            //}
+                    remainingFactors /= primeFactor;
+                }
 
-            //stepsMultiple = stepsTracker[0];
+                // Remove each number in primeFactorsForPath that is already in commonFactorsAllPaths
+                foreach(var commonFactor in commonFactorsAllPaths)
+                {
+                    primeFactorsForPath.Remove(commonFactor);
+                }
+
+                // Add any remaining numbers from primeFactorsForPath into commonFactorsAllPaths
+                commonFactorsAllPaths.AddRange(primeFactorsForPath);
+            }
+
+            // stepsMultiple is the product of all prime numbers in commonFactorsAllPaths
+            if (commonFactorsAllPaths.Count > 0)
+            {
+                stepsMultiple = commonFactorsAllPaths.Aggregate(1L, (product, factor) => product * factor);
+            }
 
             stopwatch.Stop();
 
             return $"{steps:N0} steps are required to reach ZZZ from AAA\r\n" +
-                   //$"{stepsMultiple:N0} steps are required to get to all nodes ending with Z\r\n" +
+                   $"{stepsMultiple:N0} steps are required to get to all nodes ending with Z\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
 
