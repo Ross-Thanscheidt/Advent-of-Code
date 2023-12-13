@@ -6,8 +6,6 @@
         public char Symbol;
         public char Type;
         public char North;
-        public char East;
         public char South;
-        public char West;
     }
 }

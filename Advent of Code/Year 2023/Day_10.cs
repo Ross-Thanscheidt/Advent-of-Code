@@ -10,11 +10,11 @@ namespace Advent_of_Code
             Stopwatch stopwatch = Stopwatch.StartNew();
 
             long maxSteps = 0;
-
-            int rows = 0;
-            int columns = 0;
+            long tilesEnclosed = 0;
 
             Dictionary<(int X, int Y), Tile> tiles = [];
+            int rows = 0;
+            int columns = 0;
 
             Position start = new(-1, -1);
 
@@ -31,9 +31,7 @@ namespace Advent_of_Code
                             Symbol = line[lineIndex],
                             Type = 'U',
                             North = 'U',
-                            East = 'U',
-                            South = 'U',
-                            West = 'U'
+                            South = 'U'
                         };
 
                         tiles.Add((tile.Position.X, tile.Position.Y), tile);
@@ -47,8 +45,6 @@ namespace Advent_of_Code
                     rows++;
                 }
             }
-
-            Debug.WriteLine($"Start at ({start.X},{start.Y})");
 
             Position current = start;
             Position previous = start;
@@ -71,27 +67,21 @@ namespace Advent_of_Code
                     {
                         tile.Symbol = east ? 'L' : south ? '|' : west ? 'J' : 'U';
                         tile.North = 'P';
-                        tile.East = east ? 'P' : south || west ? 'R' : 'U';
                         tile.South = east ? 'L' : south ? 'P' : west ? 'R' : 'U';
-                        tile.West = east || south ? 'L' : west ? 'P' : 'U';
                         current.Y--;
                     }
                     else if (east)
                     {
                         tile.Symbol = south ? 'F' : west ? '-' : 'U';
                         tile.North = south || west ? 'L' : 'U';
-                        tile.East = 'P';
                         tile.South = south ? 'P' : west ? 'R' : 'U';
-                        tile.West = south ? 'L' : west ? 'P' : 'U';
                         current.X++;
                     }
                     else if (south)
                     {
                         tile.Symbol = west ? '7' : 'U';
                         tile.North = west ? 'L' : 'U';
-                        tile.East = west ? 'L' : 'U';
                         tile.South = west ? 'P' : 'U';
-                        tile.West = west ? 'P' : 'U';
                         current.Y++;
                     }
                 }
@@ -107,9 +97,7 @@ namespace Advent_of_Code
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "7|F".IndexOf(tile.Symbol);
                         tile.North = "RPL"[nextTileIndex];
-                        tile.East = "RRP"[nextTileIndex];
                         tile.South = 'P';
-                        tile.West = "PLL"[nextTileIndex];
                     }
                     else if ("-LF".Contains(tileSymbol) && tiles.ContainsKey((current.X + 1, current.Y)) && (previous.X != current.X + 1 || previous.Y != current.Y))
                     {
@@ -119,9 +107,7 @@ namespace Advent_of_Code
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "J-7".IndexOf(tile.Symbol);
                         tile.North = "PLL"[nextTileIndex];
-                        tile.East = "RPL"[nextTileIndex];
                         tile.South = "RRP"[nextTileIndex];
-                        tile.West = 'P';
                     }
                     else if ("|7F".Contains(tileSymbol) && tiles.ContainsKey((current.X, current.Y + 1)) && (previous.X != current.X || previous.Y != current.Y + 1))
                     {
@@ -131,9 +117,7 @@ namespace Advent_of_Code
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "J|L".IndexOf(tile.Symbol);
                         tile.North = 'P';
-                        tile.East = "LLP"[nextTileIndex];
                         tile.South = "LPR"[nextTileIndex];
-                        tile.West = "PRR"[nextTileIndex];
                     }
                     else if ("-J7".Contains(tileSymbol) && tiles.ContainsKey((current.X - 1, current.Y)) && (previous.X != current.X - 1 || previous.Y != current.Y))
                     {
@@ -143,9 +127,7 @@ namespace Advent_of_Code
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "L-F".IndexOf(tile.Symbol);
                         tile.North = "PRR"[nextTileIndex];
-                        tile.East = 'P';
                         tile.South = "LLP"[nextTileIndex];
-                        tile.West = "LPR"[nextTileIndex];
                     }
                 }
 
@@ -154,11 +136,39 @@ namespace Advent_of_Code
 
             maxSteps = (maxSteps + 1) / 2;
 
+            Dictionary<char, char> mapLR = [];
+
+            for (var column = 0; column < columns; column++)
+            {
+                var inLoop = false;
+
+                for (var row = 0; row < rows; row++)
+                {
+                    var tile = tiles[(column, row)];
+
+                    if (tile.Type != 'P' && inLoop)
+                    {
+                        tilesEnclosed++;
+                    }
+
+                    if (mapLR.Count == 0 && tile.Type == 'P' && "LR".Contains(tile.North))
+                    {
+                        mapLR.Add(tile.North, inLoop ? 'I' : 'O');
+                        mapLR.Add(tile.North == 'L' ? 'R' : 'L', inLoop ? 'O' : 'I');
+                    }
+
+                    if (tile.Type == 'P' && "LR".Contains(tile.South) && mapLR.Count > 0)
+                    {
+                        inLoop = mapLR[tile.South] == 'I';
+                    }
+                }
+            }
+
             stopwatch.Stop();
 
             return $"{maxSteps:N0} steps to the point farthest from the starting position\r\n" +
+                   $"{tilesEnclosed:N0} tiles are enclosed by the loop\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
-
     }
 }
