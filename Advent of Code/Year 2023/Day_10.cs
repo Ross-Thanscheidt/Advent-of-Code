@@ -66,22 +66,22 @@ namespace Advent_of_Code
                     if (north)
                     {
                         tile.Symbol = east ? 'L' : south ? '|' : west ? 'J' : 'U';
-                        tile.North = 'P';
-                        tile.South = east ? 'L' : south ? 'P' : west ? 'R' : 'U';
+                        tile.North = 'U';
+                        tile.South = east ? 'L' : west ? 'R' : 'U';
                         current.Y--;
                     }
                     else if (east)
                     {
                         tile.Symbol = south ? 'F' : west ? '-' : 'U';
                         tile.North = south || west ? 'L' : 'U';
-                        tile.South = south ? 'P' : west ? 'R' : 'U';
+                        tile.South = west ? 'R' : 'U';
                         current.X++;
                     }
                     else if (south)
                     {
                         tile.Symbol = west ? '7' : 'U';
                         tile.North = west ? 'L' : 'U';
-                        tile.South = west ? 'P' : 'U';
+                        tile.South = 'U';
                         current.Y++;
                     }
                 }
@@ -96,8 +96,8 @@ namespace Advent_of_Code
 
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "7|F".IndexOf(tile.Symbol);
-                        tile.North = "RPL"[nextTileIndex];
-                        tile.South = 'P';
+                        tile.North = "RUL"[nextTileIndex];
+                        tile.South = 'U';
                     }
                     else if ("-LF".Contains(tileSymbol) && tiles.ContainsKey((current.X + 1, current.Y)) && (previous.X != current.X + 1 || previous.Y != current.Y))
                     {
@@ -106,8 +106,8 @@ namespace Advent_of_Code
 
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "J-7".IndexOf(tile.Symbol);
-                        tile.North = "PLL"[nextTileIndex];
-                        tile.South = "RRP"[nextTileIndex];
+                        tile.North = "ULL"[nextTileIndex];
+                        tile.South = "RRU"[nextTileIndex];
                     }
                     else if ("|7F".Contains(tileSymbol) && tiles.ContainsKey((current.X, current.Y + 1)) && (previous.X != current.X || previous.Y != current.Y + 1))
                     {
@@ -116,8 +116,8 @@ namespace Advent_of_Code
 
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "J|L".IndexOf(tile.Symbol);
-                        tile.North = 'P';
-                        tile.South = "LPR"[nextTileIndex];
+                        tile.North = 'U';
+                        tile.South = "LUR"[nextTileIndex];
                     }
                     else if ("-J7".Contains(tileSymbol) && tiles.ContainsKey((current.X - 1, current.Y)) && (previous.X != current.X - 1 || previous.Y != current.Y))
                     {
@@ -126,8 +126,8 @@ namespace Advent_of_Code
 
                         tile = tiles[(current.X, current.Y)];
                         var nextTileIndex = "L-F".IndexOf(tile.Symbol);
-                        tile.North = "PRR"[nextTileIndex];
-                        tile.South = "LLP"[nextTileIndex];
+                        tile.North = "URR"[nextTileIndex];
+                        tile.South = "LLU"[nextTileIndex];
                     }
                 }
 
