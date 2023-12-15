@@ -73,7 +73,7 @@ namespace Advent_of_Code
 
             if ((!UseInputPart1.Visible || (UseInputPart1.Visible && UseInputPart1.Checked)) && File.Exists(answerFilename))
             {
-                ExpectedAnswerTextBox.Text += "Part One: " + File.ReadAllText(answerFilename);
+                ExpectedAnswerTextBox.Text += string.Join("\r\n", File.ReadAllText(answerFilename).ReplaceLineEndings("\n").Split("\n").Select(line => $"Part One: {line}"));
             }
 
             answerFilename = Input_Filename(year, day, 2, answer: true);
@@ -85,7 +85,7 @@ namespace Advent_of_Code
                     ExpectedAnswerTextBox.Text += "\r\n";
                 }
 
-                ExpectedAnswerTextBox.Text += "Part Two: " + File.ReadAllText(answerFilename);
+                ExpectedAnswerTextBox.Text += string.Join("\r\n", File.ReadAllText(answerFilename).ReplaceLineEndings("\n").Split("\n").Select(line => $"Part Two: {line}"));
             }
         }
 
