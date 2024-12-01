@@ -11,8 +11,4 @@
     <StartupObject>Advent_of_Code.Program</StartupObject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Year 2024\Input.Test\Answers\" />
-  </ItemGroup>
-
 </Project>

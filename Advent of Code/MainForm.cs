@@ -7,7 +7,7 @@ namespace Advent_of_Code
          * Ross W. Thanscheidt
          */
 
-        const string INPUT_YEAR_FOLDER = @"..\..\..\..\..\Advent-of-Code-Input\Advent of Code\Year {0}"; 
+        const string INPUT_YEAR_FOLDER = @"..\..\..\..\..\..\Private\Advent-of-Code-Input\Advent of Code\Year {0}"; 
         const string INPUT_YEAR_FOLDER_TEST = @"..\..\..\Year {0}";
         const string INPUT_FILE_FORMAT = @"\Input{0}{1}\Day_{2:00}{3}{4}.txt";
 
@@ -160,6 +160,7 @@ namespace Advent_of_Code
                 2021 => new Year_2021(),
                 2022 => new Year_2022(),
                 2023 => new Year_2023(),
+                2024 => new Year_2024(),
                 _ => null
             };
 
