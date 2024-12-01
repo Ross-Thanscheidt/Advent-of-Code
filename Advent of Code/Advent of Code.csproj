@@ -2,12 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
     <RootNamespace>Advent_of_Code</RootNamespace>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
+    <UseWindowsForms>True</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <StartupObject>Advent_of_Code.Program</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Year 2024\Input.Test\Answers\" />
+  </ItemGroup>
 
 </Project>
