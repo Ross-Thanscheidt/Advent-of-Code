@@ -6,7 +6,7 @@ namespace Advent_of_Code
     public partial class Year_2024 : IYear
     {
 
-        [GeneratedRegex("(?<id1>\\d+)\\s+(?<id2>\\d+)")]
+        [GeneratedRegex(@"(?<id1>\d+)\s+(?<id2>\d+)")]
         private static partial Regex Day_01_LocationIDsRegex();
 
         public string Day_01(StringReader input)
