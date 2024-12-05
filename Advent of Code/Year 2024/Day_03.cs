@@ -5,7 +5,7 @@ namespace Advent_of_Code
 {
     public partial class Year_2024 : IYear
     {
-        [GeneratedRegex("do\\(\\)|don't\\(\\)|mul\\((?<num1>\\d{1,3}),(?<num2>\\d{1,3})\\)")]
+        [GeneratedRegex(@"do\(\)|don't\(\)|mul\((?<num1>\d{1,3}),(?<num2>\d{1,3})\)")]
         private static partial Regex Day_03_InstructionsRegex();
 
         public string Day_03(StringReader input)
