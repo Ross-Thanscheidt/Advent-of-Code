@@ -90,6 +90,5 @@ namespace Advent_of_Code
                    $"{x_masCount:N0} is how many times an X-MAS appears\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
-
     }
 }
