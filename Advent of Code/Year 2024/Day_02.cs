@@ -72,6 +72,5 @@ namespace Advent_of_Code
                    $"{safeReportsProblemDampener:N0} reports are safe using the Problem Dampener\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
-
     }
 }
