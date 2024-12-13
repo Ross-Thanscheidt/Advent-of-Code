@@ -30,90 +30,89 @@ namespace Advent_of_Code
                 rows++;
             }
 
-            List<char> plants = [.. map.Select(plot => plot.Value).Distinct()];
             List<Direction> directions = [ (0, -1), (1, 0), (0, 1), (-1, 0) ];
 
-            foreach (char plant in plants)
+            while (map.Count > 0)
             {
-                while (map.Any(plot => plot.Value == plant))
+                var plot = map.First();
+                char plant = plot.Value;
+
+                List<Position> search = [ plot.Key ];
+                List<Position> region = [];
+
+                while (search.Count > 0)
                 {
-                    List<Position> search = [ map.First(plot => plot.Value == plant).Key ];
-                    List<Position> region = [];
+                    Position candidate = search[0];
+                    search.RemoveAt(0);
 
-                    while (search.Count > 0)
+                    if (map.TryGetValue(candidate, out char candidatePlant) && candidatePlant == plant)
                     {
-                        Position candidate = search[0];
-                        search.RemoveAt(0);
-
-                        if (map.TryGetValue(candidate, out char candidatePlant) && candidatePlant == plant)
-                        {
-                            map.Remove(candidate);
-                            region.Add(candidate);
-
-                            foreach ((int dx, int dy) in directions)
-                            {
-                                Position neighbor = (candidate.X + dx, candidate.Y + dy);
-
-                                if (neighbor.X >= 0 && neighbor.X < columns &&
-                                    neighbor.Y >= 0 && neighbor.Y < rows)
-                                {
-                                    search.Add(neighbor);
-                                }
-                            }
-                        }
-                    }
-
-                    int area = region.Count;
-
-                    int perimeter = 0;
-
-                    List<Position> leftFences = [];
-                    List<Position> rightFences = [];
-                    List<Position> topFences = [];
-                    List<Position> bottomFences = [];
-
-                    foreach ((int X, int Y) in region)
-                    {
-                        perimeter += 4;
+                        map.Remove(candidate);
+                        region.Add(candidate);
 
                         foreach ((int dx, int dy) in directions)
                         {
-                            Position neighbor = (X + dx, Y + dy);
+                            Position neighbor = (candidate.X + dx, candidate.Y + dy);
 
                             if (neighbor.X >= 0 && neighbor.X < columns &&
-                                neighbor.Y >= 0 && neighbor.Y < rows &&
-                                region.Contains(neighbor))
+                                neighbor.Y >= 0 && neighbor.Y < rows)
                             {
-                                perimeter--;
-                            }
-                            else if (neighbor.X < X)
-                            {
-                                leftFences.Add((X, Y));
-                            }
-                            else if (neighbor.X > X)
-                            {
-                                rightFences.Add((X, Y));
-                            }
-                            else if (neighbor.Y < Y)
-                            {
-                                topFences.Add((X, Y));
-                            }
-                            else if (neighbor.Y > Y)
-                            {
-                                bottomFences.Add((X, Y));
+                                search.Add(neighbor);
                             }
                         }
                     }
-
-                    totalPricePerimeter += area * perimeter;
-
-                    int sides = leftFences.Count(position => !leftFences.Contains((position.X, position.Y - 1))) +
-                                rightFences.Count(position => !rightFences.Contains((position.X, position.Y - 1))) +
-                                topFences.Count(position => !topFences.Contains((position.X - 1, position.Y))) +
-                                bottomFences.Count(position => !bottomFences.Contains((position.X - 1, position.Y)));
-
-                    totalPriceSides += area * sides;
                 }
+
+                int area = region.Count;
+
+                int perimeter = 0;
+
+                List<Position> leftFences = [];
+                List<Position> rightFences = [];
+                List<Position> topFences = [];
+                List<Position> bottomFences = [];
+
+                foreach ((int X, int Y) in region)
+                {
+                    perimeter += 4;
+
+                    foreach ((int dx, int dy) in directions)
+                    {
+                        Position neighbor = (X + dx, Y + dy);
+
+                        if (neighbor.X >= 0 && neighbor.X < columns &&
+                            neighbor.Y >= 0 && neighbor.Y < rows &&
+                            region.Contains(neighbor))
+                        {
+                            perimeter--;
+                        }
+                        else if (neighbor.X < X)
+                        {
+                            leftFences.Add((X, Y));
+                        }
+                        else if (neighbor.X > X)
+                        {
+                            rightFences.Add((X, Y));
+                        }
+                        else if (neighbor.Y < Y)
+                        {
+                            topFences.Add((X, Y));
+                        }
+                        else if (neighbor.Y > Y)
+                        {
+                            bottomFences.Add((X, Y));
+                        }
+                    }
+                }
+
+                totalPricePerimeter += area * perimeter;
+
+                int sides = leftFences.Count(position => !leftFences.Contains((position.X, position.Y - 1))) +
+                            rightFences.Count(position => !rightFences.Contains((position.X, position.Y - 1))) +
+                            topFences.Count(position => !topFences.Contains((position.X - 1, position.Y))) +
+                            bottomFences.Count(position => !bottomFences.Contains((position.X - 1, position.Y)));
+
+                totalPriceSides += area * sides;
             }
 
             stopwatch.Stop();
