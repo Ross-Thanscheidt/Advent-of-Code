@@ -8,17 +8,55 @@ namespace Advent_of_Code
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            long part1 = 0;
-            long part2 = 0;
+            long designsPossible = 0;
+            long waysPossible = 0;
+
+            List<string> designs = [];
 
             for (var line = input.ReadLine(); line != null; line = input.ReadLine())
             {
+                if (designs.Count == 0)
+                {
+                    designs = [.. line.Split(", ")];
+                }
+                else if (line.Length > 0)
+                {
+                    PriorityQueue<string, int> remainders = new();
+
+                    remainders.Enqueue(line, line.Length);
+
+                    bool found = false;
+
+                    while (remainders.Count > 0)
+                    {
+                        string remainder = remainders.Dequeue();
+
+
+                        foreach (string design in designs.Where(design => remainder.StartsWith(design)))
+                        {
+                            if (design.Length == remainder.Length)
+                            {
+                                if (!found)
+                                {
+                                    designsPossible++;
+                                    found = true;
+                                }
+
+                                waysPossible++;
+                            }
+                            else
+                            {
+                                remainders.Enqueue(remainder[design.Length..], remainder.Length - design.Length);
+                            }
+                        }
+                    }
+                }
             }
 
             stopwatch.Stop();
 
-            return $"{part1:N0}\r\n" +
-                   $"{part2:N0}\r\n" +
+            return $"{designsPossible:N0}\r\n" +
+                   $"{waysPossible:N0}\r\n" +
                    $"({stopwatch.Elapsed.TotalMilliseconds} ms)";
         }
     }
