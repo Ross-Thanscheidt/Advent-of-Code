@@ -7,7 +7,7 @@ namespace Advent_of_Code
          * Ross W. Thanscheidt
          */
 
-        const string INPUT_YEAR_FOLDER = @"..\..\..\..\..\..\Private\Advent-of-Code-Input\Advent of Code\Year {0}"; 
+        const string INPUT_YEAR_FOLDER = @"..\..\..\..\..\..\Private\Advent-of-Code-Input\Advent of Code\Year {0}";
         const string INPUT_YEAR_FOLDER_TEST = @"..\..\..\Year {0}";
         const string INPUT_FILE_FORMAT = @"\Input{0}{1}\Day_{2:00}{3}{4}.txt";
 
@@ -94,6 +94,8 @@ namespace Advent_of_Code
             ShowInputPartSelection(false);
             UpdateInputTextBoxText();
             OutputTextBox.Text = "";
+
+            DaySelection.Maximum = YearSelection.Value < 2025 ? 25 : 12;
         }
 
         private void DaySelection_ValueChanged(object sender, EventArgs e)
@@ -138,9 +140,13 @@ namespace Advent_of_Code
             {
                 DaySelection.Value = 1;
             }
-            else if (DateTime.Today > new DateTime((int)YearSelection.Value, 12, 25))
+            else if (YearSelection.Value < 2025 && DateTime.Today > new DateTime((int)YearSelection.Value, 12, 25))
             {
                 DaySelection.Value = 25;
+            }
+            else if (YearSelection.Value >= 2025 && DateTime.Today > new DateTime((int)YearSelection.Value, 12, 12))
+            {
+                DaySelection.Value = 12;
             }
             else
             {
@@ -155,45 +161,74 @@ namespace Advent_of_Code
 
         private void GoButton_Click(object sender, EventArgs e)
         {
-            IYear? year = YearSelection.Value switch
+            if (YearSelection.Value < 2025)
             {
-                2021 => new Year_2021(),
-                2022 => new Year_2022(),
-                2023 => new Year_2023(),
-                2024 => new Year_2024(),
-                _ => null
-            };
-
-            using (var input = new StringReader(InputTextBox.Text))
-                OutputTextBox.Text = DaySelection.Value switch
+                IYear? year = YearSelection.Value switch
                 {
-                    1 => year?.Day_01(input),
-                    2 => year?.Day_02(input),
-                    3 => year?.Day_03(input),
-                    4 => year?.Day_04(input),
-                    5 => year?.Day_05(input),
-                    6 => year?.Day_06(input),
-                    7 => year?.Day_07(input),
-                    8 => year?.Day_08(input),
-                    9 => year?.Day_09(input),
-                    10 => year?.Day_10(input),
-                    11 => year?.Day_11(input),
-                    12 => year?.Day_12(input),
-                    13 => year?.Day_13(input),
-                    14 => year?.Day_14(input),
-                    15 => year?.Day_15(input),
-                    16 => year?.Day_16(input),
-                    17 => year?.Day_17(input),
-                    18 => year?.Day_18(input),
-                    19 => year?.Day_19(input),
-                    20 => year?.Day_20(input),
-                    21 => year?.Day_21(input),
-                    22 => year?.Day_22(input),
-                    23 => year?.Day_23(input),
-                    24 => year?.Day_24(input),
-                    25 => year?.Day_25(input),
-                    _ => string.Empty
+                    2021 => new Year_2021(),
+                    2022 => new Year_2022(),
+                    2023 => new Year_2023(),
+                    2024 => new Year_2024(),
+                    _ => null
                 };
+
+                using (var input = new StringReader(InputTextBox.Text))
+                    OutputTextBox.Text = DaySelection.Value switch
+                    {
+                        1 => year?.Day_01(input),
+                        2 => year?.Day_02(input),
+                        3 => year?.Day_03(input),
+                        4 => year?.Day_04(input),
+                        5 => year?.Day_05(input),
+                        6 => year?.Day_06(input),
+                        7 => year?.Day_07(input),
+                        8 => year?.Day_08(input),
+                        9 => year?.Day_09(input),
+                        10 => year?.Day_10(input),
+                        11 => year?.Day_11(input),
+                        12 => year?.Day_12(input),
+                        13 => year?.Day_13(input),
+                        14 => year?.Day_14(input),
+                        15 => year?.Day_15(input),
+                        16 => year?.Day_16(input),
+                        17 => year?.Day_17(input),
+                        18 => year?.Day_18(input),
+                        19 => year?.Day_19(input),
+                        20 => year?.Day_20(input),
+                        21 => year?.Day_21(input),
+                        22 => year?.Day_22(input),
+                        23 => year?.Day_23(input),
+                        24 => year?.Day_24(input),
+                        25 => year?.Day_25(input),
+                        _ => string.Empty
+                    };
+            }
+            else
+            {
+                IYear12? year = YearSelection.Value switch
+                {
+                    2025 => new Year_2025(),
+                    _ => null
+                };
+
+                using (var input = new StringReader(InputTextBox.Text))
+                    OutputTextBox.Text = DaySelection.Value switch
+                    {
+                        1 => year?.Day_01(input),
+                        2 => year?.Day_02(input),
+                        3 => year?.Day_03(input),
+                        4 => year?.Day_04(input),
+                        5 => year?.Day_05(input),
+                        6 => year?.Day_06(input),
+                        7 => year?.Day_07(input),
+                        8 => year?.Day_08(input),
+                        9 => year?.Day_09(input),
+                        10 => year?.Day_10(input),
+                        11 => year?.Day_11(input),
+                        12 => year?.Day_12(input),
+                        _ => string.Empty
+                    };
+            }
         }
     }
 }
