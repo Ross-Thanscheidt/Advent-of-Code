@@ -150,7 +150,9 @@ namespace Advent_of_Code
             }
             else
             {
-                DaySelection.Value = DateTime.Today.Day;
+                TimeZoneInfo easternZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                DateTime easternTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, easternZone);
+                DaySelection.Value = easternTime.Day;
             }
 
             while (DaySelection.Value > 1 && string.IsNullOrWhiteSpace(InputTextBox.Text))
